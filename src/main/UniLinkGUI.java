@@ -5,8 +5,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import model.ConnectionTest;
-import model.CreateTable;
+import model.InitializeDatabase;
+import model.InitializeTables;
+
 
 //Dont look at MainMenu.fmxl and MainController.java
 
@@ -16,18 +17,18 @@ public class UniLinkGUI extends Application {
         public void start(Stage primaryStage) throws Exception{
 
         //Create Database
-        ConnectionTest.createDb();
+        InitializeDatabase.createDb();
 
         //Create table scrips
-        CreateTable.createTable();
+        InitializeTables.createTable();
 
         //insert initial data
 
-        CreateTable.insertData();
+        InitializeTables.insertData();
 
-
+        //To launch the login screen
         Parent root = FXMLLoader.load(getClass().getResource("/view/Login.fxml"));
-        primaryStage.setTitle("Rohits house");
+        primaryStage.setTitle("Login");
         primaryStage.setScene(new Scene(root, 300, 275));
         primaryStage.centerOnScreen();
         primaryStage.show();

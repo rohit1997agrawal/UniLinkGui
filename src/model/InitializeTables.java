@@ -5,31 +5,27 @@ package model;
 //The syntax is supported by recent HSQLDB 2.3.X versions.
 
 import com.sun.glass.ui.Window;
-import model.ConnectionTest;
+import model.InitializeDatabase;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
 
-public class CreateTable {
+public class InitializeTables {
 
-    public static void createTable()
-    {
 
+    //Function to create table "post" and "reply"
+    //To be modified Later
+    public static void createTable() {
         Connection con = null;
         Statement stmt = null;
         Statement stmt2 = null;
         Statement stmt3 = null;
         Statement stmt4 = null;
-
         int result = 0;
         int result2 = 0;
-
         try {
-            ConnectionTest test = new ConnectionTest();
-            test.createDb();
-            Class.forName("org.hsqldb.jdbc.JDBCDriver");
-            con = DriverManager.getConnection("jdbc:hsqldb:file:database/testDB", "SA", "");
+            con = InitializeDatabase.getConnection("testDB");
             stmt3 = con.createStatement();
             stmt4 = con.createStatement();
             result = stmt4.executeUpdate("DROP TABLE reply");
@@ -50,37 +46,31 @@ public class CreateTable {
                     "             responder_id VARCHAR(50) NOT NULL,  " +
                     "           FOREIGN KEY (post_id) REFERENCES post(id) ) ");
             System.out.println(result2);
-
-
-        }  catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace(System.out);
         }
         System.out.println("Table created successfully");
     }
 
 
-
-
-
-    public static void insertData()
-    {
+    //Function to insert data initially (will not be used every time we run the program - to be modified)
+    public static void insertData() {
 
         Connection con = null;
         Statement stmt = null;
         Statement stmt2 = null;
         int result = 0;
         try {
-            Class.forName("org.hsqldb.jdbc.JDBCDriver");
-            con = DriverManager.getConnection( "jdbc:hsqldb:file:database/testDB", "SA", "");
+            con = InitializeDatabase.getConnection("testDB");
             stmt = con.createStatement();
             stmt2 = con.createStatement();
             result = stmt.executeUpdate("INSERT INTO post (id,title,description,creator_id,status,image,event_venue,event_date,event_capacity,event_attendee_count) VALUES ('EVE001','First Event','Event description','ROH001','OPEN','rohit','rohits house','10/10/2020',10,0)");
             result = stmt2.executeUpdate("INSERT INTO post (id,title,description,creator_id,status,image,event_venue,event_date,event_capacity,event_attendee_count) VALUES ('EVE002','Second Event','Event description','ROH002','OPEN','rohit2','rohits house2','10/10/2021',8,0)");
-                    con.commit();
-        }catch (Exception e) {
+            con.commit();
+        } catch (Exception e) {
             e.printStackTrace(System.out);
         }
-        System.out.println(result+" rows effected");
+        System.out.println(result + " rows effected");
         System.out.println("Rows inserted successfully");
     }
 }

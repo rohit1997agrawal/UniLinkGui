@@ -41,7 +41,7 @@
             <TextField fx:id="txtUserName" promptText="Username" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <HBox alignment="BOTTOM_RIGHT" prefHeight="61.0" prefWidth="95.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <children>
-                  <Button mnemonicParsing="false" onAction="#Login" text="Login" />
+                  <Button fx:id="loginButton" mnemonicParsing="false" onAction="#Login" text="Login" />
                </children>
             </HBox>
          </children>

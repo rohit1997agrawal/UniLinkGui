@@ -4,10 +4,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class ConnectionTest {
+public class InitializeDatabase {
 
-    public static void createDb()
-    {
+    // Creates the Database for UniLink Application
+    public static void createDb() {
         final String DB_NAME = "testDB";
 
         //use try-with-resources Statement
@@ -21,6 +21,8 @@ public class ConnectionTest {
         }
     }
 
+
+    //To get a connection to the database
     public static Connection getConnection(String dbName)
             throws SQLException, ClassNotFoundException {
         //Registering the HSQLDB JDBC driver
