@@ -33,6 +33,9 @@ public class UniLinkGUI extends Application {
         primaryStage.centerOnScreen();
         primaryStage.show();
 
+         System.out.println(System.getProperty("java.version"));
+         System.out.println(System.getProperty("javafx.version"));
+
     }
 
 
