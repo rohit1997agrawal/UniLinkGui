@@ -18,8 +18,7 @@ public class MainController {
     @FXML
     private TextField txtUserName;
 
-    @FXML
-    private Text userName;
+
 
     public void Login(javafx.event.ActionEvent actionEvent) throws Exception
     {
@@ -34,9 +33,9 @@ public class MainController {
             Stage primaryStage = new Stage();
             Parent root = FXMLLoader.load(getClass().getResource("/view/MainMenu.fxml"));
             primaryStage.setTitle("MainMenu");
-            primaryStage.setScene(new Scene(root, 300, 275));
+            primaryStage.setScene(new Scene(root, 800, 900));
             primaryStage.centerOnScreen();
-           //userName.setText("YOOOOOO");
+
             primaryStage.show();
         }
     }

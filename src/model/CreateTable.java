@@ -1,5 +1,10 @@
 package model;
 
+//IMPORTAMT
+
+//The syntax is supported by recent HSQLDB 2.3.X versions.
+
+import com.sun.glass.ui.Window;
 import model.ConnectionTest;
 
 import java.sql.Connection;
@@ -14,6 +19,8 @@ public class CreateTable {
         Connection con = null;
         Statement stmt = null;
         Statement stmt2 = null;
+        Statement stmt3 = null;
+        Statement stmt4 = null;
 
         int result = 0;
         int result2 = 0;
@@ -23,6 +30,11 @@ public class CreateTable {
             test.createDb();
             Class.forName("org.hsqldb.jdbc.JDBCDriver");
             con = DriverManager.getConnection("jdbc:hsqldb:file:database/testDB", "SA", "");
+            stmt3 = con.createStatement();
+            stmt4 = con.createStatement();
+            result = stmt4.executeUpdate("DROP TABLE reply");
+            result = stmt3.executeUpdate("DROP TABLE post");
+
             stmt = con.createStatement();
 
             result = stmt.executeUpdate("CREATE TABLE post (" +
@@ -33,7 +45,7 @@ public class CreateTable {
             System.out.println(result);
 
             stmt2 = con.createStatement();
-            result2 = stmt.executeUpdate(" CREATE TABLE reply (" +
+            result2 = stmt.executeUpdate("CREATE TABLE reply (" +
                     "           id INTEGER IDENTITY PRIMARY KEY, post_id VARCHAR(10) NOT NULL, value FLOAT NOT NULL , " +
                     "             responder_id VARCHAR(50) NOT NULL,  " +
                     "           FOREIGN KEY (post_id) REFERENCES post(id) ) ");
@@ -44,5 +56,31 @@ public class CreateTable {
             e.printStackTrace(System.out);
         }
         System.out.println("Table created successfully");
+    }
+
+
+
+
+
+    public static void insertData()
+    {
+
+        Connection con = null;
+        Statement stmt = null;
+        Statement stmt2 = null;
+        int result = 0;
+        try {
+            Class.forName("org.hsqldb.jdbc.JDBCDriver");
+            con = DriverManager.getConnection( "jdbc:hsqldb:file:database/testDB", "SA", "");
+            stmt = con.createStatement();
+            stmt2 = con.createStatement();
+            result = stmt.executeUpdate("INSERT INTO post (id,title,description,creator_id,status,image,event_venue,event_date,event_capacity,event_attendee_count) VALUES ('EVE001','First Event','Event description','ROH001','OPEN','rohit','rohits house','10/10/2020',10,0)");
+            result = stmt2.executeUpdate("INSERT INTO post (id,title,description,creator_id,status,image,event_venue,event_date,event_capacity,event_attendee_count) VALUES ('EVE002','Second Event','Event description','ROH002','OPEN','rohit2','rohits house2','10/10/2021',8,0)");
+                    con.commit();
+        }catch (Exception e) {
+            e.printStackTrace(System.out);
+        }
+        System.out.println(result+" rows effected");
+        System.out.println("Rows inserted successfully");
     }
 }
