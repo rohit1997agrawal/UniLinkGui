@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ListViewController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="950.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ListViewController">
     <top>
         <VBox BorderPane.alignment="CENTER">
             <children>
@@ -48,19 +48,19 @@
                                         <Insets left="10.0" />
                                     </padding>
                                 </Label>
-                                <ChoiceBox prefWidth="150.0" />
+                                <ChoiceBox fx:id="filter_type" prefWidth="150.0" />
                                 <Label layoutX="301.0" layoutY="17.0" text="Status:">
                                     <padding>
                                         <Insets left="15.0" />
                                     </padding>
                                 </Label>
-                                <ChoiceBox layoutX="479.0" layoutY="10.0" prefWidth="150.0" />
+                                <ChoiceBox fx:id="filter_status" layoutX="479.0" layoutY="10.0" prefWidth="150.0" />
                                 <Label layoutX="352.0" layoutY="17.0" text="Creator:">
                                     <padding>
                                         <Insets left="15.0" />
                                     </padding>
                                 </Label>
-                                <ChoiceBox layoutX="479.0" layoutY="10.0" prefWidth="150.0" />
+                                <ChoiceBox fx:id="filter_creator" layoutX="479.0" layoutY="10.0" prefWidth="150.0" />
                             </items>
                             <HBox.margin>
                                 <Insets />
@@ -97,11 +97,11 @@
     <center>
         <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
-            <ScrollPane prefHeight="312.0" prefWidth="650.0">
+            <ScrollPane>
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
+                <AnchorPane minHeight="0.0" minWidth="0.0">
                      <children>
-                        <ListView fx:id="listView" prefHeight="308.0" prefWidth="650.0" />
+                        <ListView fx:id="listView" prefHeight="400.0" prefWidth="1000.0" />
                      </children>
                   </AnchorPane>
               </content>

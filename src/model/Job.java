@@ -8,9 +8,9 @@ public class Job extends Post {
     }
 
     //Parametrized constructor to initialize attributes and create an "Job Post"
-    public Job(String id, String title, String description, double proposed_price, String creator_id) {
+    public Job(String id, String title, String description, double proposed_price, String creator_id,String image_name) {
         //Calling Constructor of Super Class "Post" to initialize attributes of Post
-        super(id, title, description, creator_id);
+        super(id, title, description, creator_id ,image_name);
         this.proposed_price = proposed_price;
 
     }

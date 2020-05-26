@@ -12,7 +12,7 @@ public class ListViewCell extends ListCell<Post>
         if(object != null && !empty)
         {
             Data data = new Data();
-            data.setInfo(object.getTitle());
+            data.setInfo(object);
             setGraphic(data.getBox());
         }
     }

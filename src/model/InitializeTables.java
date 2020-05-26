@@ -84,7 +84,7 @@ public class InitializeTables {
 
         Set<Post> postCollection = UniLink.getPostCollection();
         //To hard code one Event "EVE001" with few attendees
-        Event newEvent = new Event("EVE001", "Programming Study Group ", "Let's meet tonight to finish the assignment" , "RMIT Library","06/05/2020", 5, "S001");
+        Event newEvent = new Event("EVE001", "Programming Study Group ", "Let's meet tonight to finish the assignment" , "RMIT Library","06/05/2020", 5, "S001","study.jpg");
         postCollection.add(newEvent);
         Reply replyEvent1 = new Reply("EVE001",1, "S002");
         newEvent.handleReply(replyEvent1);
@@ -94,7 +94,7 @@ public class InitializeTables {
         newEvent.handleReply(replyEvent3);
 
         //To hard code one Sale with few offers
-        Sale newSale = new Sale("SAL001","I phone 6S","Working condtion , with box and charger",400,20,"S005");
+        Sale newSale = new Sale("SAL001","I phone 6S","Working condtion , with box and charger",400,20,"S005","iphone.jpg");
         postCollection.add(newSale);
         Reply replySale1 = new Reply("SAL001",200, "S006");
         newSale.handleReply(replySale1);
@@ -104,7 +104,7 @@ public class InitializeTables {
         newSale.handleReply(replySale3);
 
         //To hard code one Job with few offers
-        Job newJob = new Job("JOB001","Changing house","Need someone to help me move my belongings to new place",200,"S009");
+        Job newJob = new Job("JOB001","Changing house","Need someone to help me move my belongings to new place",200,"S009","house.jpg" );
         postCollection.add(newJob);
         Reply replyJob1 = new Reply("JOB001",200, "S010");
         newJob.handleReply(replyJob1);

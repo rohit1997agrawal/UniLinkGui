@@ -11,9 +11,9 @@ public class Sale extends Post {
     }
 
     //Parametrized constructor to initialize attributes and create an "Sale Post"
-    public Sale(String id, String title, String description, double asking_price, double minimum_raise, String creator_id) {
+    public Sale(String id, String title, String description, double asking_price, double minimum_raise, String creator_id , String image_name) {
         //Calling Constructor of Super Class "Post" to initialize attributes of Post
-        super(id, title, description, creator_id);
+        super(id, title, description, creator_id,image_name);
         this.asking_price = asking_price;
         this.minimum_raise = minimum_raise;
 

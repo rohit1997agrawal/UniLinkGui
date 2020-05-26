@@ -10,9 +10,9 @@ public class Event extends Post {
     }
 
     //Parametrized constructor to initialize attributes and create an "Event"
-    public Event(String id, String title, String description, String venue, String date, int capacity, String creator_id) {
+    public Event(String id, String title, String description, String venue, String date, int capacity, String creator_id,String image_name) {
         //Calling Constructor of Super Class "Post" to initialize attributes of Post
-        super(id, title, description, creator_id);
+        super(id, title, description, creator_id,image_name);
         this.venue = venue;
         this.date = date;
         this.capacity = capacity;

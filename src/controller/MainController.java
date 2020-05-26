@@ -44,7 +44,7 @@ public class MainController {
             Stage mainMenuStage = new Stage();
             Parent root = FXMLLoader.load(getClass().getResource("/view/MainMenu.fxml"));
             mainMenuStage.setTitle("MainMenu");
-            mainMenuStage.setScene(new Scene(root, 500, 600));
+            mainMenuStage.setScene(new Scene(root, 950, 500));
             mainMenuStage.centerOnScreen();
             mainMenuStage.show();
         }
