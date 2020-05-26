@@ -1,3 +1,4 @@
+package model;
 import java.util.ArrayList;
 
 public abstract class Post {  //Abstract class , as it contains Abstract methods

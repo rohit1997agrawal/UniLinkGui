@@ -1,3 +1,5 @@
+package model;
+
 public class Job extends Post {
     private double proposed_price; //Attribute of type Double to store the Proposed Price
     private double lowest_offer; //Attribute of type Double to store the Lowest Offer

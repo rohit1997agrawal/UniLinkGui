@@ -10,6 +10,7 @@ import model.InitializeDatabase;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
+import java.util.Set;
 
 public class InitializeTables {
 
@@ -72,5 +73,49 @@ public class InitializeTables {
         }
         System.out.println(result + " rows effected");
         System.out.println("Rows inserted successfully");
+    }
+
+
+
+    //Function to read data from the database and populate it to the ArrayList
+    //To be changed later
+    public static void readDatabase()
+    {
+
+        Set<Post> postCollection = UniLink.getPostCollection();
+        //To hard code one Event "EVE001" with few attendees
+        Event newEvent = new Event("EVE001", "Programming Study Group ", "Let's meet tonight to finish the assignment" , "RMIT Library","06/05/2020", 5, "S001");
+        postCollection.add(newEvent);
+        Reply replyEvent1 = new Reply("EVE001",1, "S002");
+        newEvent.handleReply(replyEvent1);
+        Reply replyEvent2 = new Reply("EVE001",1, "S003");
+        newEvent.handleReply(replyEvent2);
+        Reply replyEvent3 = new Reply("EVE001",1, "S004");
+        newEvent.handleReply(replyEvent3);
+
+        //To hard code one Sale with few offers
+        Sale newSale = new Sale("SAL001","I phone 6S","Working condtion , with box and charger",400,20,"S005");
+        postCollection.add(newSale);
+        Reply replySale1 = new Reply("SAL001",200, "S006");
+        newSale.handleReply(replySale1);
+        Reply replySale2 = new Reply("SAL001",250, "S007");
+        newSale.handleReply(replySale2);
+        Reply replySale3 = new Reply("SAL001",300, "S008");
+        newSale.handleReply(replySale3);
+
+        //To hard code one Job with few offers
+        Job newJob = new Job("JOB001","Changing house","Need someone to help me move my belongings to new place",200,"S009");
+        postCollection.add(newJob);
+        Reply replyJob1 = new Reply("JOB001",200, "S010");
+        newJob.handleReply(replyJob1);
+        Reply replyJob2 = new Reply("JOB001",150, "S011");
+        newJob.handleReply(replyJob2);
+        Reply replyJob3 = new Reply("JOB001",100, "S012");
+        newJob.handleReply(replyJob3);
+
+        UniLink.setPostCollection(postCollection);
+
+
+
     }
 }

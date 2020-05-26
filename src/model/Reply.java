@@ -1,3 +1,5 @@
+package model;
+
 public class Reply {
 
     private String post_id;  //String to store POST ID

@@ -1,3 +1,5 @@
+package model;
+
 public class Event extends Post {
     private String venue; //String to Store Venue of Event
     private String date; //String to store date of Event

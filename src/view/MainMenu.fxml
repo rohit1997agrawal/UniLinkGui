@@ -4,19 +4,19 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.ToolBar?>
-<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="650.0" fx:controller="controller.MenuController" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ListViewController">
     <top>
         <VBox BorderPane.alignment="CENTER">
             <children>
@@ -96,51 +96,17 @@
     </top>
     <center>
         <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
-            <children>
-                <HBox prefHeight="83.0" prefWidth="650.0" style="-fx-border-style: solid inside; -fx-padding: 10; -fx-border-width: .5;">
-                    <children>
-                        <ImageView fx:id="post_image" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                            <HBox.margin>
-                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                            </HBox.margin>
-                        </ImageView>
-                        <VBox prefHeight="200.0" prefWidth="100.0">
-                            <children>
-                                <TextField fx:id="post_id" editable="false" text="Post Id" />
-                                <TextField fx:id="post_title" editable="false" text="Title" />
-                            </children>
-                        </VBox>
-                        <VBox layoutX="81.0" layoutY="21.0" prefHeight="200.0" prefWidth="100.0">
-                            <children>
-                                <TextField fx:id="post_description" editable="false" text="Description" />
-                                <TextField fx:id="post_creator_id" editable="false" text="Creator Id" />
-                            </children>
-                        </VBox>
-                        <VBox layoutX="181.0" layoutY="21.0" prefHeight="200.0" prefWidth="100.0">
-                            <children>
-                                <TextField fx:id="post_status" editable="false" text="Status" />
-                                <TextField fx:id="post_info_1" editable="false" text="Venue" />
-                            </children>
-                        </VBox>
-                        <VBox layoutX="281.0" layoutY="21.0" prefHeight="200.0" prefWidth="100.0">
-                            <children>
-                                <TextField fx:id="post_info_2" editable="false" text="Date" />
-                                <TextField fx:id="post_info_3" editable="false" text="Capacity" />
-                            </children>
-                        </VBox>
-                        <Button mnemonicParsing="false" text="Reply">
-                            <HBox.margin>
-                                <Insets left="10.0" />
-                            </HBox.margin>
-                        </Button>
-                        <Button layoutX="481.0" layoutY="21.0" mnemonicParsing="false" text="More Details">
-                            <HBox.margin>
-                                <Insets left="10.0" />
-                            </HBox.margin>
-                        </Button>
-                    </children>
-                </HBox>
-            </children>
+         <children>
+            <ScrollPane prefHeight="312.0" prefWidth="650.0">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <ListView fx:id="listView" prefHeight="308.0" prefWidth="650.0" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </ScrollPane>
+         </children>
         </VBox>
     </center>
 </BorderPane>

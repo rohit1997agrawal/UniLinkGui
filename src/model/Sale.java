@@ -1,3 +1,6 @@
+package model;
+
+
 public class Sale extends Post {
     private double asking_price; //Attribute of Type Double to Store Asking Price
     private double highest_offer; //Attribute of Type Double to Store Highest offer

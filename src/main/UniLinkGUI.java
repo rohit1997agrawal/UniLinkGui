@@ -1,5 +1,6 @@
 package main;
 
+import com.sun.org.apache.xml.internal.security.Init;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -9,14 +10,18 @@ import model.InitializeDatabase;
 import model.InitializeTables;
 
 
+
 //Dont look at MainMenu.fmxl and MainController.java
 
 public class UniLinkGUI extends Application {
+
+
 
      @Override
         public void start(Stage primaryStage) throws Exception{
 
         //Create Database
+
         InitializeDatabase.createDb();
 
         //Create table scrips
@@ -25,6 +30,10 @@ public class UniLinkGUI extends Application {
         //insert initial data
 
         InitializeTables.insertData();
+
+        //Function to read database and store data in Post Collection(defined in UniLink.java)
+         //To be modified to read from database
+        InitializeTables.readDatabase();
 
         //To launch the login screen
         Parent root = FXMLLoader.load(getClass().getResource("/view/Login.fxml"));
