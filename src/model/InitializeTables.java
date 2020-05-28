@@ -9,6 +9,7 @@ import model.InitializeDatabase;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Set;
 
@@ -81,8 +82,58 @@ public class InitializeTables {
     //To be changed later
     public static void readDatabase()
     {
-
         Set<Post> postCollection = UniLink.getPostCollection();
+        Connection con = null;
+        Statement stmt = null;
+        Statement stmt2 = null;
+        ResultSet result = null;
+
+        try {
+            con = InitializeDatabase.getConnection("testDB");
+            stmt = con.createStatement();
+            stmt2 = con.createStatement();
+            result = stmt.executeQuery("select * from post");
+            while(result.next()){
+                ResultSet replyResult = null;
+                String currentId = result.getString("id");
+                replyResult = stmt2.executeQuery("select * from reply where post_id ='"+currentId+"'");
+                if(currentId.startsWith("EVE"))
+                {
+                    Event event = new Event(currentId,result.getString("title"),result.getString("description"),result.getString("event_venue"),result.getString("event_date"),result.getInt("event_capacity"),result.getString("creator_id"),result.getString("image"));
+                    while(replyResult.next()){
+                        Reply reply = new Reply(replyResult.getString("post_id"),replyResult.getDouble("value"),replyResult.getString("responder_id"));
+                       event.getReplyList().add(reply);
+                   }
+                    postCollection.add(event);
+
+                }
+                else if(currentId.startsWith("JOB"))
+                {
+                    Job job = new Job(currentId,result.getString("title"),result.getString("description"),result.getDouble("job_proposed_price"),result.getString("creator_id"),result.getString("image"));
+                    while(replyResult.next()){
+                        Reply reply = new Reply(replyResult.getString("post_id"),replyResult.getDouble("value"),replyResult.getString("responder_id"));
+                        job.getReplyList().add(reply);
+                    }
+                    postCollection.add(job);
+                }
+                else if(currentId.startsWith("SAL"))
+                {
+                    Sale sale = new Sale(currentId,result.getString("title"),result.getString("description"),result.getDouble("sale_asking_price"),result.getDouble("sale_asking_price"),result.getString("creator_id"),result.getString("image"));
+                    while(replyResult.next()){
+                        Reply reply = new Reply(replyResult.getString("post_id"),replyResult.getDouble("value"),replyResult.getString("responder_id"));
+                        sale.getReplyList().add(reply);
+                    }
+                    postCollection.add(sale);
+                }
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace(System.out);
+        }
+        //System.out.println(result + " rows effected");
+        System.out.println("Rows select * successfully");
+
+
         //To hard code one Event "EVE001" with few attendees
         Event newEvent = new Event("EVE001", "Programming Study Group ", "Let's meet tonight to finish the assignment" , "RMIT Library","06/05/2020", 5, "S001","study.jpg");
         postCollection.add(newEvent);

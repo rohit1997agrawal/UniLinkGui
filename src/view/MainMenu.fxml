@@ -75,7 +75,7 @@
                                 <Insets left="5.0" />
                             </padding>
                         </Label>
-                        <Label layoutX="10.0" layoutY="15.0" text="Id displayed here">
+                        <Label fx:id="logged_in_user" layoutX="10.0" layoutY="15.0" text="Id displayed here">
                             <HBox.margin>
                                 <Insets left="55.0" />
                             </HBox.margin>

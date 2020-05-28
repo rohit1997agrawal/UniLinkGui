@@ -1,7 +1,9 @@
 package controller;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -47,6 +49,22 @@ public class Data
 
     @FXML
     private Label post_info_4;
+
+    @FXML
+    private Button reply_button;
+
+    @FXML
+    private Button more_details_button;
+
+    @FXML
+    void handleMoreDetails(ActionEvent event) {
+
+    }
+
+    @FXML
+    void handleReply(ActionEvent event) {
+
+    }
 
     public Data()
     {
@@ -97,6 +115,8 @@ public class Data
         hBox.setStyle(
                 "-fx-background-color: lightPink"
         );
+        reply_button.setText("Join Event");
+
     }
     public void setSaleInfo(Post object)
     {
@@ -107,7 +127,6 @@ public class Data
         hBox.setStyle(
                 "-fx-background-color: lightCyan"
         );
-
         post_info_3.setStyle("-fx-border-width : 0");
         post_info_4.setStyle("-fx-border-width : 0");
 

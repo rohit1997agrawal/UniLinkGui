@@ -41,8 +41,14 @@ public class MainController {
             primaryStage.close();
 
             //To initialize new stage , to open Main menu
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/view/MainMenu.fxml"));
+            Parent root = loader.load();
             Stage mainMenuStage = new Stage();
-            Parent root = FXMLLoader.load(getClass().getResource("/view/MainMenu.fxml"));
+
+            ListViewController controller = loader.getController();
+            controller.setLoggedInUser(txtUserName.getText());
+
             mainMenuStage.setTitle("MainMenu");
             mainMenuStage.setScene(new Scene(root, 950, 500));
             mainMenuStage.centerOnScreen();

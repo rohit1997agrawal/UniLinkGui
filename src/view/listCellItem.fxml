@@ -79,12 +79,12 @@
             </Label>
          </children>
       </VBox>
-      <Button mnemonicParsing="false" text="Reply">
+      <Button fx:id="reply_button" mnemonicParsing="false" onAction="#handleReply" text="Reply">
          <HBox.margin>
             <Insets bottom="5.0" left="5.0" top="5.0" />
          </HBox.margin>
       </Button>
-      <Button layoutX="738.0" layoutY="20.0" mnemonicParsing="false" text="More Details">
+      <Button fx:id="more_details_button" layoutX="738.0" layoutY="20.0" mnemonicParsing="false" onAction="#handleMoreDetails" text="More Details">
          <HBox.margin>
             <Insets bottom="5.0" left="5.0" top="5.0" />
          </HBox.margin>
