@@ -59,9 +59,15 @@ public class Sale extends Post {
         String sale_details = post_details + "\nMinimum Raise:\t$" + this.minimum_raise + "\nHighest Offer :\t" + highest_offer_value;
         return sale_details; //Contains All Details i.e Post Details + Sale Details
     }
+    public boolean handleReply(Reply reply) {
+        this.highest_offer = reply.getValue();
+        this.getReplyList().add(reply);
+        return true;
+    }
+
 
     //Implementation of Abstract method "handleReply" to handle Reply to an "Sale"
-    public boolean handleReply(Reply reply) {
+    public boolean oldhandleReply(Reply reply) {
         Boolean add_reply = false;
         //To check if Job Post is open and offered Price is a positive number
         if (this.getStatus().equals("OPEN"))

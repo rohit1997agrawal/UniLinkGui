@@ -48,8 +48,14 @@ public class Job extends Post {
         return job_details; //Contains All Details i.e Post Details + Job Details
     }
 
+    public boolean handleReply(Reply reply)
+    {
+        this.getReplyList().add(reply);   //Adding current "Reply object" to ArrayList "ReplyList"
+        this.setLowest_offer(reply.getValue()); //Update the "Lowest Offer" to current offer
+        return true;
+    }
     //Implementation of Abstract method "handleReply" to handle Reply to an "Job"
-    public boolean handleReply(Reply reply) {
+    public boolean oldhandleReply(Reply reply) {
         //To check if Job Post is open and offered Price is a positive number
         if (this.getStatus().equals("OPEN"))
             if (reply.getValue() > 0) {

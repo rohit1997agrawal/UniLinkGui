@@ -235,6 +235,8 @@ public class ListViewController {
 
     public void setListView(Set<Post> postCollection)
     {
+
+
         observableList.setAll(postCollection);
         listView.setItems(observableList);
         listView.setCellFactory(new Callback<ListView<Post>, javafx.scene.control.ListCell<Post>>()
@@ -242,7 +244,7 @@ public class ListViewController {
             @Override
             public ListCell<Post> call(ListView<Post> listView)
             {
-                return new ListViewCell();
+                return new ListViewCell(primaryStage,unilink,logged_in_user.getText());
             }
         });
     }

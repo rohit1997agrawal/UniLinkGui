@@ -59,8 +59,19 @@ public class Event extends Post {
         return event_details; //Contains All Details i.e Post Details + Event Details
     }
 
+    public boolean handleReply(Reply reply)
+    {
+        this.getReplyList().add(reply);
+        this.attendee_count++;
+        //Condition to Close the event if Attendees count match the capacity
+        if (this.attendee_count == this.capacity) {
+            this.setStatus("CLOSED");
+        }
+        return true;
+    }
+
     //Implementation of Abstract method "handleReply" to handle Reply to an "Event"
-    public boolean handleReply(Reply reply) {
+    public boolean handleReplyOld(Reply reply) {
         Boolean add_reply = false;
         //Condition to check if Reply is in "1" and Event is still "OPEN"
         if (reply.getValue() == 1)
