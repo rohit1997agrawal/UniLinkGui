@@ -63,13 +63,21 @@ public class NewEventController {
 
     @FXML
     void submitEvent(ActionEvent event) throws IOException {
+        alertBox.setAlertType(Alert.AlertType.ERROR);
         try{
             int num = Integer.parseInt(event_capacity.getText());
+            if(num<=0)
+            {
+                alertBox.setContentText("Please enter a positive number for Capacity!");
+                alertBox.show();
+                return;
+
+            }
             // is an integer!
         } catch (NumberFormatException e) {
             System.out.println("INT");
-            alertBox.setAlertType(Alert.AlertType.ERROR);
-            alertBox.setContentText("Capacity should be an integer!");
+
+            alertBox.setContentText("Please enter a valid input for Capacity!");
             alertBox.show();
             return;
         }
@@ -113,7 +121,7 @@ public class NewEventController {
 
     @FXML
     void uploadImage(ActionEvent event) {
-        primaryStage.setTitle("File Chooser Sample");
+
         final FileChooser fileChooser = new FileChooser();
         file = fileChooser.showOpenDialog(primaryStage);
         if (file != null) {

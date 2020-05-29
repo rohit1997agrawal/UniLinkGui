@@ -54,13 +54,31 @@ public class ListViewController {
     }
 
     @FXML
-    void newJob(ActionEvent event) {
+    void newJob(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/view/NewJob.fxml"));
 
+        Parent root = loader.load();
+        NewJobController controller = loader.getController();
+        controller.initializeModelAndStage(primaryStage,unilink,logged_in_user.getText());
+        primaryStage.setTitle("New Job");
+        primaryStage.setScene(new Scene(root, 600  , 400));
+        primaryStage.centerOnScreen();
+        primaryStage.show();
     }
 
     @FXML
-    void newSale(ActionEvent event) {
+    void newSale(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/view/NewSale.fxml"));
 
+        Parent root = loader.load();
+        NewSaleController controller = loader.getController();
+        controller.initializeModelAndStage(primaryStage,unilink,logged_in_user.getText());
+        primaryStage.setTitle("New Sale");
+        primaryStage.setScene(new Scene(root, 600  , 400));
+        primaryStage.centerOnScreen();
+        primaryStage.show();
     }
 
     @FXML
