@@ -1,10 +1,12 @@
 package controller;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.*;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 import model.Post;
 import model.UniLink;
@@ -29,9 +31,67 @@ public class ListViewController {
     @FXML
     private Label logged_in_user;
 
+    @FXML
+    private Button logout;
+
+    Stage primaryStage;
+    UniLink unilink;
+
+
+    @FXML
+    void newEvent(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/view/NewEvent.fxml"));
+
+        Parent root = loader.load();
+        NewEventController controller = loader.getController();
+        controller.initializeModelAndStage(primaryStage,unilink,logged_in_user.getText());
+        primaryStage.setTitle("New Event ");
+        primaryStage.setScene(new Scene(root, 600  , 400));
+        primaryStage.centerOnScreen();
+        primaryStage.show();
+
+    }
+
+    @FXML
+    void newJob(ActionEvent event) {
+
+    }
+
+    @FXML
+    void newSale(ActionEvent event) {
+
+    }
+
+    @FXML
+    void logOut(ActionEvent event) {
+//        Stage loginStage = (Stage) logout.getScene().getWindow();
+//        loginStage.close();
+
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/view/Login.fxml"));
+            Parent root = loader.load();
+            MainController controller = loader.getController();
+            controller.initializeModelAndStage(primaryStage, unilink);
+            primaryStage.setTitle("Login");
+            primaryStage.setScene(new Scene(root, 300, 275));
+            primaryStage.centerOnScreen();
+            primaryStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @FXML
+    void quitApp(ActionEvent event) {
+        primaryStage.close();
+    }
+
     private Set<Post> postCollection;
 
-  // private  String logged_in_user;
+
 
     ObservableList<Post> observableList = FXCollections.observableArrayList();
     ObservableList<String> availableTypes = FXCollections.observableArrayList("All","Event", "Sale","Job");
@@ -39,10 +99,17 @@ public class ListViewController {
     ObservableList<String> availableCreator = FXCollections.observableArrayList("All","My Posts");
 
 
-    public void setLoggedInUser(String username)
+    public void initializeModelAndStage(String username , Stage primaryStage , UniLink unilink)
     {
+        this.unilink = unilink;
+        this.primaryStage=primaryStage;
         logged_in_user.setText(username);
         System.out.println(logged_in_user);
+
+        postCollection =  unilink.getPostCollection();
+
+        setChoiceBox();
+        setListView(postCollection);
 
     }
     public ListViewController()
@@ -61,10 +128,13 @@ public class ListViewController {
     }
     @FXML
     void initialize() {
+        System.out.println("HELLO");
+      //  System.out.println(unilink.getPostCollection().size());
         assert listView != null : "fx:id=\"listView\" was not injected: check your FXML file 'CustomList.fxml'.";
-        postCollection = UniLink.getPostCollection();
-        setChoiceBox();
-        setListView(postCollection);
+//        postCollection =  unilink.getPostCollection();
+//
+//        setChoiceBox();
+//        setListView(postCollection);
 
     }
     public void setChoiceBox() {

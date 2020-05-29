@@ -25,7 +25,7 @@
                         <Menu mnemonicParsing="false" text="Unilink">
                             <items>
                                 <MenuItem mnemonicParsing="false" text="Developer Information" />
-                                <MenuItem mnemonicParsing="false" text="Quit UniLink" />
+                                <MenuItem fx:id="quit" mnemonicParsing="false" onAction="#quitApp" text="Quit UniLink" />
                             </items>
                         </Menu>
                         <Menu mnemonicParsing="false" text="Data">
@@ -40,9 +40,9 @@
                     <children>
                         <ToolBar HBox.hgrow="ALWAYS">
                             <items>
-                                <Button mnemonicParsing="false" text="New Event Post" />
-                                <Button layoutX="10.0" layoutY="13.0" mnemonicParsing="false" text="New Sale Post" />
-                                <Button layoutX="10.0" layoutY="13.0" mnemonicParsing="false" text="New Job Post" />
+                                <Button mnemonicParsing="false" onAction="#newEvent" text="New Event Post" />
+                                <Button layoutX="10.0" layoutY="13.0" mnemonicParsing="false" onAction="#newSale" text="New Sale Post" />
+                                <Button layoutX="10.0" layoutY="13.0" mnemonicParsing="false" onAction="#newJob" text="New Job Post" />
                                 <Label text="Type:">
                                     <padding>
                                         <Insets left="10.0" />
@@ -81,7 +81,7 @@
                             </HBox.margin>
                         </Label>
                         <Region HBox.hgrow="ALWAYS" />
-                        <Button mnemonicParsing="false" text="Logout">
+                        <Button fx:id="logout" mnemonicParsing="false" onAction="#logOut" text="Logout">
                             <HBox.margin>
                                 <Insets left="150.0" right="5.0" />
                             </HBox.margin>

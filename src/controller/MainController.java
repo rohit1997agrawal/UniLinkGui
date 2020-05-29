@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import model.UniLink;
 
 import java.awt.event.ActionEvent;
 
@@ -21,7 +22,16 @@ public class MainController {
     @FXML
     private Button loginButton;
 
+    Stage primaryStage;
 
+    UniLink unilink;
+
+   public void initializeModelAndStage(Stage primaryStage,UniLink unilink)
+   {
+       this.unilink = unilink;
+        this.primaryStage=primaryStage;
+
+   }
 
 
     public void Login(javafx.event.ActionEvent actionEvent) throws Exception
@@ -36,23 +46,22 @@ public class MainController {
         //To load the Main menu , once Id is entered
         else{
 
-            //To close the login window
-            Stage primaryStage = (Stage) loginButton.getScene().getWindow();
-            primaryStage.close();
+
 
             //To initialize new stage , to open Main menu
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/view/MainMenu.fxml"));
+
             Parent root = loader.load();
-            Stage mainMenuStage = new Stage();
 
             ListViewController controller = loader.getController();
-            controller.setLoggedInUser(txtUserName.getText());
 
-            mainMenuStage.setTitle("MainMenu");
-            mainMenuStage.setScene(new Scene(root, 950, 500));
-            mainMenuStage.centerOnScreen();
-            mainMenuStage.show();
+            controller.initializeModelAndStage(txtUserName.getText(),primaryStage,unilink);
+
+            primaryStage.setTitle("MainMenu");
+            primaryStage.setScene(new Scene(root, 950, 500));
+            primaryStage.centerOnScreen();
+            primaryStage.show();
         }
     }
 

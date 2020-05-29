@@ -80,9 +80,9 @@ public class InitializeTables {
 
     //Function to read data from the database and populate it to the ArrayList
     //To be changed later
-    public static void readDatabase()
+    public static void readDatabase(UniLink unilink)
     {
-        Set<Post> postCollection = UniLink.getPostCollection();
+        Set<Post> postCollection = unilink.getPostCollection();
         Connection con = null;
         Statement stmt = null;
         Statement stmt2 = null;
@@ -164,7 +164,9 @@ public class InitializeTables {
         Reply replyJob3 = new Reply("JOB001",100, "S012");
         newJob.handleReply(replyJob3);
 
-        UniLink.setPostCollection(postCollection);
+        unilink.setPostCollection(postCollection);
+
+
 
 
 
