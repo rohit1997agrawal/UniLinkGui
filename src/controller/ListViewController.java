@@ -11,7 +11,11 @@ import javafx.util.Callback;
 import model.Post;
 import model.UniLink;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -52,6 +56,7 @@ public class ListViewController {
         primaryStage.show();
 
     }
+
 
     @FXML
     void newJob(ActionEvent event) throws IOException {
@@ -99,6 +104,33 @@ public class ListViewController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+    }
+    @FXML
+    void exportData(ActionEvent event) {
+        File fileName = new File("Posts.txt");
+
+
+        try {
+            FileWriter fw = new FileWriter(fileName);
+            BufferedWriter output = new BufferedWriter(fw);
+
+            Iterator<Post> iterator = unilink.getPostCollection().iterator();  //Using an iterator to remove/delete the post
+            while (iterator.hasNext()) {
+                Post currentPost = iterator.next();
+                output.write(currentPost.toString());
+                output.newLine();
+            }
+
+            output.close();
+
+        } catch (Exception e) {
+//            JOptionPane.showMessageDialog(null, "I cannot create that file");
+        }
+    }
+
+    @FXML
+    void importData(ActionEvent event) {
 
     }
 

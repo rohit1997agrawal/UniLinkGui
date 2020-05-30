@@ -21,6 +21,27 @@ public abstract class Post {  //Abstract class , as it contains Abstract methods
     public Post() {
     }
 
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    @Override
+    public String toString() {
+        return "Post{" +
+                "id='" + id + '\'' +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", creator_id='" + creator_id + '\'' +
+                ", status='" + status + '\'' +
+                ", image_name='" + image_name + '\'' +
+                ", replyList=" + replyList +
+                '}';
+    }
+
     // Parameterized Constructor to be used by sub Classes to to initialize the attributes
     public Post(String id, String title, String description, String creator_id,String image_name) {
         this.id = id;

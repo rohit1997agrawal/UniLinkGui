@@ -15,8 +15,11 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import model.*;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Iterator;
 
 public class Data
 {
@@ -60,6 +63,8 @@ public class Data
 
 
 
+
+
     Post object;
     Alert alertBox = new Alert(Alert.AlertType.NONE);
 
@@ -74,8 +79,27 @@ public class Data
     }
 
 
+
+
     @FXML
     void handleMoreDetails(ActionEvent event) {
+
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/view/MoreDetails.fxml"));
+            Parent root = loader.load();
+            MoreDetailsController controller = loader.getController();
+            controller.initializeModelAndStage(logged_in_user,primaryStage,object,unilink);
+
+            primaryStage.setTitle("More Details of Post");
+            primaryStage.setScene(new Scene(root, 809, 514));
+            primaryStage.centerOnScreen();
+            primaryStage.show();
+
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 

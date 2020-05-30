@@ -6,6 +6,15 @@ public class Reply {
     private double value; //Double to store Reply value
     private String responder_id; //String to store Responder Id
 
+    @Override
+    public String toString() {
+        return "Reply{" +
+                "post_id='" + post_id + '\'' +
+                ", value=" + value +
+                ", responder_id='" + responder_id + '\'' +
+                '}';
+    }
+
     public Reply() {
     }
 
