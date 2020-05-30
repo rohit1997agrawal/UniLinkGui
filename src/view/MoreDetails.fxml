@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="514.0" prefWidth="809.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MoreDetailsController">
+   <top>
+      <HBox prefHeight="50.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button mnemonicParsing="false" onAction="#returnToMainMenu" text="Back to Main Window">
+               <HBox.margin>
+                  <Insets left="10.0" top="10.0" />
+               </HBox.margin>
+            </Button>
+            <Label prefHeight="50.0" prefWidth="242.0" text="More Details about yor post">
+               <HBox.margin>
+                  <Insets left="40.0" />
+               </HBox.margin>
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+   </top>
+   <left>
+      <VBox BorderPane.alignment="TOP_LEFT">
+         <BorderPane.margin>
+            <Insets left="10.0" />
+         </BorderPane.margin>
+         <children>
+            <ImageView fx:id="post_image" fitHeight="128.0" fitWidth="136.0" pickOnBounds="true" preserveRatio="true" />
+            <Button mnemonicParsing="false" onAction="#uploadImage" text="Upload image">
+               <VBox.margin>
+                  <Insets left="20.0" top="30.0" />
+               </VBox.margin>
+            </Button>
+         </children>
+      </VBox>
+   </left>
+   <center>
+      <VBox BorderPane.alignment="TOP_LEFT">
+         <children>
+            <HBox maxHeight="-Infinity" prefHeight="158.0" prefWidth="570.0">
+               <children>
+                  <VBox prefHeight="132.0" prefWidth="89.0">
+                     <children>
+                        <HBox prefHeight="76.0" prefWidth="98.0">
+                           <children>
+                              <Label prefHeight="62.0" prefWidth="31.0" text="Post Id" wrapText="true" />
+                              <TextField fx:id="post_id" editable="false" prefHeight="38.0" prefWidth="68.0">
+                                 <HBox.margin>
+                                    <Insets top="15.0" />
+                                 </HBox.margin>
+                              </TextField>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="80.0" prefWidth="98.0">
+                           <children>
+                              <Label prefHeight="62.0" prefWidth="51.0" text="Creator Id" wrapText="true" />
+                              <TextField fx:id="post_creator_id" editable="false" prefHeight="40.0" prefWidth="58.0">
+                                 <HBox.margin>
+                                    <Insets top="15.0" />
+                                 </HBox.margin>
+                              </TextField>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <VBox layoutX="10.0" layoutY="10.0" prefHeight="132.0" prefWidth="162.0">
+                     <children>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <HBox prefHeight="50.0" prefWidth="168.0">
+                                 <children>
+                                    <Label prefHeight="52.0" prefWidth="68.0" text="Title">
+                                       <HBox.margin>
+                                          <Insets left="5.0" />
+                                       </HBox.margin>
+                                    </Label>
+                                    <TextArea fx:id="post_title" maxHeight="-Infinity" prefHeight="5.0" prefWidth="99.0" wrapText="true">
+                                       <HBox.margin>
+                                          <Insets top="15.0" />
+                                       </HBox.margin>
+                                    </TextArea>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="112.0" prefWidth="168.0">
+                           <children>
+                              <Label prefHeight="62.0" prefWidth="64.0" text="Description" wrapText="true">
+                                 <HBox.margin>
+                                    <Insets left="5.0" />
+                                 </HBox.margin>
+                              </Label>
+                              <TextArea fx:id="post_description" maxHeight="-Infinity" prefHeight="5.0" prefWidth="99.0" wrapText="true">
+                                 <HBox.margin>
+                                    <Insets top="15.0" />
+                                 </HBox.margin>
+                              </TextArea>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <VBox layoutX="10.0" layoutY="10.0" prefHeight="158.0" prefWidth="130.0">
+                     <children>
+                        <HBox prefHeight="76.0" prefWidth="98.0">
+                           <children>
+                              <Label prefHeight="62.0" prefWidth="46.0" text="Status" wrapText="true">
+                                 <HBox.margin>
+                                    <Insets left="5.0" />
+                                 </HBox.margin>
+                              </Label>
+                              <TextField fx:id="post_status" editable="false" prefHeight="38.0" prefWidth="68.0">
+                                 <HBox.margin>
+                                    <Insets top="15.0" />
+                                 </HBox.margin>
+                              </TextField>
+                           </children>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox prefHeight="80.0" prefWidth="98.0">
+                           <children>
+                              <Label fx:id="post_info_1_label" prefHeight="62.0" prefWidth="51.0" text="Post info 1" wrapText="true">
+                                 <HBox.margin>
+                                    <Insets left="5.0" />
+                                 </HBox.margin>
+                              </Label>
+                              <TextField fx:id="post_info_1" prefHeight="40.0" prefWidth="67.0">
+                                 <HBox.margin>
+                                    <Insets top="15.0" />
+                                 </HBox.margin>
+                              </TextField>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <VBox layoutX="280.0" layoutY="10.0" prefHeight="158.0" prefWidth="143.0">
+                     <children>
+                        <HBox prefHeight="76.0" prefWidth="98.0">
+                           <children>
+                              <Label fx:id="post_info_2_label" prefHeight="62.0" prefWidth="58.0" text="Post info 2" wrapText="true">
+                                 <HBox.margin>
+                                    <Insets left="5.0" />
+                                 </HBox.margin>
+                              </Label>
+                              <TextField fx:id="post_info_2" prefHeight="38.0" prefWidth="82.0">
+                                 <HBox.margin>
+                                    <Insets top="15.0" />
+                                 </HBox.margin>
+                              </TextField>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="80.0" prefWidth="98.0">
+                           <children>
+                              <Label fx:id="post_info_3_label" prefHeight="62.0" prefWidth="56.0" text="Post info 3" wrapText="true">
+                                 <HBox.margin>
+                                    <Insets left="5.0" />
+                                 </HBox.margin>
+                              </Label>
+                              <TextField fx:id="post_info_3" prefHeight="40.0" prefWidth="87.0">
+                                 <HBox.margin>
+                                    <Insets top="15.0" />
+                                 </HBox.margin>
+                              </TextField>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <VBox layoutX="380.0" layoutY="10.0" prefHeight="158.0" prefWidth="134.0">
+                     <children>
+                        <HBox prefHeight="76.0" prefWidth="98.0">
+                           <children>
+                              <Label fx:id="post_info_4_label" prefHeight="62.0" prefWidth="31.0" text="Post info 4" wrapText="true">
+                                 <HBox.margin>
+                                    <Insets left="5.0" />
+                                 </HBox.margin>
+                              </Label>
+                              <TextField fx:id="post_info_4" prefHeight="38.0" prefWidth="91.0">
+                                 <HBox.margin>
+                                    <Insets top="15.0" />
+                                 </HBox.margin>
+                              </TextField>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="80.0" prefWidth="98.0" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <HBox spacing="125.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#closePost" text="Close Post" />
+                  <Button mnemonicParsing="false" onAction="#deletePost" text="Delete Post" />
+                  <Button mnemonicParsing="false" onAction="#savePost" text="Save Post(After edit)" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </center>
+   <bottom>
+      <ScrollPane BorderPane.alignment="CENTER">
+         <content>
+            <TableView fx:id="replyTable" prefHeight="216.0" prefWidth="332.0">
+              <columns>
+                <TableColumn fx:id="responsder_id" editable="false" prefWidth="163.0" text="Responser Id" />
+                <TableColumn fx:id="responser_response" editable="false" minWidth="9.0" prefWidth="153.0" text="Responder response" />
+              </columns>
+            </TableView>
+         </content>
+      </ScrollPane>
+   </bottom>
+</BorderPane>
