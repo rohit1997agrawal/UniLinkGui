@@ -8,8 +8,7 @@ import javafx.scene.*;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-import model.Post;
-import model.UniLink;
+import model.*;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -118,8 +117,26 @@ public class ListViewController {
             Iterator<Post> iterator = unilink.getPostCollection().iterator();  //Using an iterator to remove/delete the post
             while (iterator.hasNext()) {
                 Post currentPost = iterator.next();
-                output.write(currentPost.toString());
-                output.newLine();
+                if(currentPost instanceof Event)
+                {
+                    Event obj = (Event)currentPost;
+                    output.write(obj.toString());
+                    output.newLine();
+                }
+                else if(currentPost instanceof Sale)
+                {
+                    Sale obj = (Sale)currentPost;
+                    output.write(obj.toString());
+                    output.newLine();
+                }
+                else if(currentPost instanceof Job)
+                {
+                    Job obj = (Job)currentPost;
+                    output.write(obj.toString());
+                    output.newLine();
+                }
+
+
             }
 
             output.close();

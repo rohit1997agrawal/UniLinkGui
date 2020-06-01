@@ -54,6 +54,21 @@ public class Job extends Post {
         this.setLowest_offer(reply.getValue()); //Update the "Lowest Offer" to current offer
         return true;
     }
+
+    @Override
+    public String toString() {
+        return  "id='" + getId() + '\'' +
+                "~ title='" + getTitle() + '\'' +
+                "~ description='" + getDescription() + '\'' +
+                "~ creator_id='" + getCreator_id() + '\'' +
+                "~ status='" + getStatus() + '\'' +
+                "~ image_name='" + getImage_name() + '\'' +
+                "~ proposed_price=" + proposed_price +
+                "~ lowest_offer=" + lowest_offer +
+                "~ replyList=" + getReplyList() ;
+
+    }
+
     //Implementation of Abstract method "handleReply" to handle Reply to an "Job"
     public boolean oldhandleReply(Reply reply) {
         //To check if Job Post is open and offered Price is a positive number

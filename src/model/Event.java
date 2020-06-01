@@ -35,6 +35,23 @@ public class Event extends Post {
         this.date = date;
     }
 
+    @Override
+    public String toString() {
+        return "" +
+                "id='" + getId() + '\'' +
+                "~ title='" + getTitle() + '\'' +
+                "~ description='" + getDescription() + '\'' +
+                "~ creator_id='" + getCreator_id() + '\'' +
+                "~ status='" + getStatus() + '\'' +
+                "~ image_name='" + getImage_name() + '\'' +
+                "venue='" + venue + '\'' +
+                "~ date='" + date + '\'' +
+                "~ capacity=" + capacity +
+                "~ attendee_count=" + attendee_count +
+                "~ replyList=" + getReplyList() ;
+
+    }
+
     public int getCapacity() {
         return capacity;
     }

@@ -66,6 +66,20 @@ public class Sale extends Post {
     }
 
 
+    @Override
+    public String toString() {
+        return  "id='" + getId() + '\'' +
+                "~ title='" + getTitle() + '\'' +
+                "~ description='" + getDescription() + '\'' +
+                "~ creator_id='" + getCreator_id() + '\'' +
+                "~ status='" + getStatus() + '\'' +
+                "~ image_name='" + getImage_name() + '\'' +
+                "~ asking_price=" + asking_price +
+                "~ highest_offer=" + highest_offer +
+                "~ minimum_raise=" + minimum_raise +
+                "~ replyList=" + getReplyList() ;
+    }
+
     //Implementation of Abstract method "handleReply" to handle Reply to an "Sale"
     public boolean oldhandleReply(Reply reply) {
         Boolean add_reply = false;

@@ -8,11 +8,10 @@ public class Reply {
 
     @Override
     public String toString() {
-        return "Reply{" +
+        return "" +
                 "post_id='" + post_id + '\'' +
-                ", value=" + value +
-                ", responder_id='" + responder_id + '\'' +
-                '}';
+                "| value=" + value +
+                "| responder_id='" + responder_id + '\'';
     }
 
     public Reply() {
