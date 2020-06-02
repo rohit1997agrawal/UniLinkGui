@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.HashSet;
 import java.util.Set;
 
 public class InitializeTables {
@@ -171,4 +172,28 @@ public class InitializeTables {
 
 
     }
+    public void writeDatabase(UniLink unilink)
+    {
+        System.out.println("ASDASDASDAASD@@@@@@@@@@@@@");
+          Set<Post> postCollection = new HashSet<>();
+          postCollection = unilink.getPostCollection();
+        for (Post object : postCollection) {
+            if(object instanceof Event)
+            {
+                String insertQuery = "INSERT INTO post (id,title,description,creator_id,status,image,event_venue,event_date,event_capacity,event_attendee_count) VALUES ('"+object.getId()+"','"+object.getTitle()+"','"+object.getDescription()+"','"+object.getCreator_id()+"','"+object.getStatus()+"','"+object.getImage_name()+"','"+((Event) object).getVenue()+"','"+((Event) object).getDate()+"',"+((Event) object).getCapacity()+","+((Event) object).getAttendee_count()+")";
+            }
+            else if(object instanceof Sale)
+            {
+
+            }
+            else if(object instanceof Job)
+            {
+
+            }
+        }
+
+        }
+
+
+
 }

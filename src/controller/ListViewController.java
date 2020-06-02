@@ -6,7 +6,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.*;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import javafx.util.Callback;
 import model.*;
 
@@ -39,6 +43,11 @@ public class ListViewController {
 
     Stage primaryStage;
     UniLink unilink;
+    File file;
+
+    DirectoryChooser directoryChooser = new DirectoryChooser();
+    Alert alertBox = new Alert(Alert.AlertType.NONE);
+
 
 
     @FXML
@@ -107,54 +116,54 @@ public class ListViewController {
     }
     @FXML
     void exportData(ActionEvent event) {
-        File fileName = new File("Posts.txt");
-
-
-        try {
-            FileWriter fw = new FileWriter(fileName);
-            BufferedWriter output = new BufferedWriter(fw);
-
-            Iterator<Post> iterator = unilink.getPostCollection().iterator();  //Using an iterator to remove/delete the post
-            while (iterator.hasNext()) {
-                Post currentPost = iterator.next();
-                if(currentPost instanceof Event)
-                {
-                    Event obj = (Event)currentPost;
-                    output.write(obj.toString());
-                    output.newLine();
-                }
-                else if(currentPost instanceof Sale)
-                {
-                    Sale obj = (Sale)currentPost;
-                    output.write(obj.toString());
-                    output.newLine();
-                }
-                else if(currentPost instanceof Job)
-                {
-                    Job obj = (Job)currentPost;
-                    output.write(obj.toString());
-                    output.newLine();
-                }
-
-
+            directoryChooser.setInitialDirectory(new File("src"));
+            File selectedDirectory = directoryChooser.showDialog(primaryStage);
+            System.out.println(selectedDirectory.getAbsolutePath());
+            FileHandling obj = new FileHandling();
+            if(obj.exportData(selectedDirectory.getAbsolutePath(),unilink))
+            {
+                alertBox.setAlertType(Alert.AlertType.INFORMATION);
+                alertBox.setContentText("Data exported successfully to "+selectedDirectory.getAbsolutePath());
             }
+            else{
+                alertBox.setAlertType(Alert.AlertType.ERROR);
+                alertBox.setContentText("Error while exporting");
+            }
+        alertBox.show();
 
-            output.close();
 
-        } catch (Exception e) {
-//            JOptionPane.showMessageDialog(null, "I cannot create that file");
-        }
     }
 
     @FXML
     void importData(ActionEvent event) {
+        final FileChooser fileChooser = new FileChooser();
+        file = fileChooser.showOpenDialog(primaryStage);
+        if (file != null) {
+            System.out.println(file.getPath());
+            FileHandling obj = new FileHandling();
+            if(obj.importData(file.getPath(),unilink))
+            {
+                alertBox.setAlertType(Alert.AlertType.INFORMATION);
+                alertBox.setContentText("Data imported successfully");
+                refreshMainMenu();
 
+            }
+            else{
+                alertBox.setAlertType(Alert.AlertType.ERROR);
+                alertBox.setContentText("Error while importing");
+            }
+            alertBox.show();
+
+
+        }
     }
 
     @FXML
     void quitApp(ActionEvent event) {
+
         primaryStage.close();
     }
+
 
     private Set<Post> postCollection;
 
@@ -177,6 +186,8 @@ public class ListViewController {
 
         setChoiceBox();
         setListView(postCollection);
+
+
 
     }
     public ListViewController()
@@ -296,6 +307,34 @@ public class ListViewController {
                 return new ListViewCell(primaryStage,unilink,logged_in_user.getText());
             }
         });
+    }
+
+//    public void handleCloseWindow()
+//    {
+//        InitializeTables obj = new InitializeTables();
+//        obj.writeDatabase();
+//    }
+
+    public void refreshMainMenu()
+    {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/view/MainMenu.fxml"));
+
+        Parent root = null;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        ListViewController controller = loader.getController();
+
+        controller.initializeModelAndStage(logged_in_user.getText(),primaryStage,unilink);
+
+        primaryStage.setTitle("MainMenu");
+        primaryStage.setScene(new Scene(root, 950, 500));
+        primaryStage.centerOnScreen();
+        primaryStage.show();
     }
 
 }

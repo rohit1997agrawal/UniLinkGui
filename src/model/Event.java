@@ -44,7 +44,7 @@ public class Event extends Post {
                 "~ creator_id='" + getCreator_id() + '\'' +
                 "~ status='" + getStatus() + '\'' +
                 "~ image_name='" + getImage_name() + '\'' +
-                "venue='" + venue + '\'' +
+                "~ venue='" + venue + '\'' +
                 "~ date='" + date + '\'' +
                 "~ capacity=" + capacity +
                 "~ attendee_count=" + attendee_count +

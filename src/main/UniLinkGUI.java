@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import model.InitializeDatabase;
 import model.InitializeTables;
 import model.UniLink;
@@ -54,6 +55,11 @@ public class UniLinkGUI extends Application {
         primaryStage.centerOnScreen();
         primaryStage.show();
 
+         primaryStage.setOnCloseRequest((
+                 WindowEvent event1) -> {
+             InitializeTables obj = new InitializeTables();
+             obj.writeDatabase(unilink);
+         });
          System.out.println(System.getProperty("java.version"));
          System.out.println(System.getProperty("javafx.version"));
 
