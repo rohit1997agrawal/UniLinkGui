@@ -14,7 +14,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="514.0" prefWidth="809.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MoreDetailsController">
    <top>
       <HBox prefHeight="50.0" prefWidth="600.0" BorderPane.alignment="CENTER">
@@ -24,7 +23,7 @@
                   <Insets left="10.0" top="10.0" />
                </HBox.margin>
             </Button>
-            <Label prefHeight="50.0" prefWidth="242.0" text="More Details about yor post">
+            <Label prefHeight="50.0" prefWidth="242.0" text="More details about your post">
                <HBox.margin>
                   <Insets left="40.0" />
                </HBox.margin>
@@ -217,10 +216,10 @@
       <ScrollPane BorderPane.alignment="CENTER">
          <content>
             <TableView fx:id="replyTable" prefHeight="216.0" prefWidth="332.0">
-              <columns>
-                <TableColumn fx:id="responsder_id" editable="false" prefWidth="163.0" text="Responser Id" />
-                <TableColumn fx:id="responser_response" editable="false" minWidth="9.0" prefWidth="153.0" text="Responder response" />
-              </columns>
+               <columns>
+                  <TableColumn fx:id="responsder_id" editable="false" prefWidth="163.0" text="Responser Id" />
+                  <TableColumn fx:id="responser_response" editable="false" minWidth="9.0" prefWidth="153.0" text="Responder response" />
+               </columns>
             </TableView>
          </content>
       </ScrollPane>

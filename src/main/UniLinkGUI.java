@@ -26,14 +26,14 @@ public class UniLinkGUI extends Application {
 
         //Create Database
 
-        InitializeDatabase.createDb();
+       // InitializeDatabase.createDb();
 
         //Create table scrips
-        InitializeTables.createTable();
+     //  InitializeTables.createTable();
 
         //insert initial data
 
-        InitializeTables.insertData();
+        //InitializeTables.insertData();
 
         //Function to read database and store data in Post Collection(defined in UniLink.java)
          //To be modified to read from database
