@@ -25,77 +25,59 @@ import java.util.Optional;
 
 public class MoreDetailsController {
 
-    @FXML
-    private ImageView post_image;
-
-    @FXML
-    private TextField post_id;
-
-    @FXML
-    private TextField post_creator_id;
-
-    @FXML
-    private TextArea post_title;
-
-    @FXML
-    private TextArea post_description;
-
-    @FXML
-    private TextField post_status;
-
-    @FXML
-    private Label post_info_1_label;
-
-    @FXML
-    private TextField post_info_1;
-
-    @FXML
-    private Label post_info_2_label;
-
-    @FXML
-    private TextField post_info_2;
-
-    @FXML
-    private TextField post_info_3;
-
-    @FXML
-    private Label post_info_3_label;
-
-    @FXML
-    private TextField post_info_4;
-
-    @FXML
-    private Label post_info_4_label;
-
-    @FXML
-    private TableView<Reply> replyTable;
-
-    @FXML
-    private TableColumn<Reply, String> responsder_id;
-
-    @FXML
-    private TableColumn<Reply, Double> responser_response;
-
     Alert alertBox = new Alert(Alert.AlertType.NONE);
-
     Post objPost;
     File file;
-
     String logged_in_user;
     Stage primaryStage;
     UniLink unilink;
+    @FXML
+    private ImageView post_image;
+    @FXML
+    private TextField post_id;
+    @FXML
+    private TextField post_creator_id;
+    @FXML
+    private TextArea post_title;
+    @FXML
+    private TextArea post_description;
+    @FXML
+    private TextField post_status;
+    @FXML
+    private Label post_info_1_label;
+    @FXML
+    private TextField post_info_1;
+    @FXML
+    private Label post_info_2_label;
+    @FXML
+    private TextField post_info_2;
+    @FXML
+    private TextField post_info_3;
+    @FXML
+    private Label post_info_3_label;
+    @FXML
+    private TextField post_info_4;
+    @FXML
+    private Label post_info_4_label;
+    @FXML
+    private TableView<Reply> replyTable;
+    @FXML
+    private TableColumn<Reply, String> responsder_id;
+    @FXML
+    private TableColumn<Reply, Double> responser_response;
 
+    /*
+        Function called when user clicks on Close Post
+        Post closed if not closed already
+        current window refreshed
+   */
     @FXML
     void closePost(ActionEvent event) {
-        if(objPost.getStatus().equals("CLOSED"))
-        {
+        if (objPost.getStatus().equals("CLOSED")) {
             alertBox.setAlertType(Alert.AlertType.ERROR);
             alertBox.setContentText("Post is closed! No action allowed");
             alertBox.show();
-        }
-        else {
-
-
+        } else {
             objPost.setStatus("CLOSED");
             alertBox.setAlertType(Alert.AlertType.INFORMATION);
             alertBox.setContentText("Post closed successfully! ");
@@ -104,10 +86,14 @@ public class MoreDetailsController {
         }
     }
 
+    /*
+    Function called when user clicks on Delete Post
+    Confirmation box displayed , to get confirmation to delete post
+    */
     @FXML
     void deletePost(ActionEvent event) {
 
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION,"Are you sure you want to delet the post?",ButtonType.YES,ButtonType.NO);
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delet the post?", ButtonType.YES, ButtonType.NO);
         alert.setTitle("Delete Post");
         Optional<ButtonType> result = alert.showAndWait();
 
@@ -129,87 +115,57 @@ public class MoreDetailsController {
             }
 
         }
-//        alert.showAndWait().ifPresent(type -> {
-//            if (type == ButtonType.YES) {
-//                Iterator<Post> iterator = unilink.getPostCollection().iterator();  //Using an iterator to remove/delete the post
-//                while (iterator.hasNext()) {
-//                    Post currentPost = iterator.next();
-//                    System.out.println(currentPost.getId());
-//
-//                    if (currentPost.getId().equals(objPost.getId())) //To get the Post with respect to the entered Post id
-//                    {
-//                        iterator.remove();
-//                        alertBox.setAlertType(Alert.AlertType.INFORMATION);
-//                        alertBox.setContentText("Post Deleted! ");
-//                        alertBox.show();
-//                        returnToMainMenu();
-//
-//                    }
-//                }
-//
-//
-//            } else if (type == ButtonType.NO) {
-//
-//                refreshCurrentView();
-//
-//            } else {
-//                refreshCurrentView();
-//            }
-//        });
-
     }
+
 
     @FXML
     void returnToMainMenu(ActionEvent event) {
         returnToMainMenu();
     }
 
+    /*
+        Function called when user clicks on Save Post after editing details
+        Save post after edit , only allowed if no one has replied to current post and it is not CLOSED
+  */
     @FXML
     void savePost(ActionEvent event) {
         alertBox.setAlertType(Alert.AlertType.ERROR);
-        if(objPost.getStatus().equals("CLOSED"))
-        {
+        if (objPost.getStatus().equals("CLOSED")) {
 
             alertBox.setContentText("Post is closed! No action allowed");
             alertBox.show();
-        }
-        else if(objPost.getReplyList().size()>0) {
+        } else if (objPost.getReplyList().size() > 0) {
             alertBox.setAlertType(Alert.AlertType.ERROR);
             alertBox.setContentText("You can not edit any details! People have responded");
             alertBox.show();
-        }
-        else{
-            if(objPost instanceof Event)
-            {
+        } else {
+            if (objPost instanceof Event) {
                 editEventInfo();
-            }
-            else if(objPost instanceof Sale)
-            {
+            } else if (objPost instanceof Sale) {
                 editSaleInfo();
-            }
-            else if(objPost instanceof Job)
-            {
+            } else if (objPost instanceof Job) {
                 editJobInfo();
             }
         }
 
     }
 
+    /*
+       Function called when user clicks on Upload image
+       Upload image only allowed , if post is not CLOSED
+    */
     @FXML
     void uploadImage(ActionEvent event) {
         alertBox.setAlertType(Alert.AlertType.ERROR);
-        if(objPost.getStatus().equals("CLOSED"))
-        {
+        if (objPost.getStatus().equals("CLOSED")) {
 
             alertBox.setContentText("Post is closed! No action allowed");
             alertBox.show();
-        }
-        else if(objPost.getReplyList().size()>0) {
+        } else if (objPost.getReplyList().size() > 0) {
 
             alertBox.setContentText("You can not upload new image! People have responded");
             alertBox.show();
-        }
-        else{
+        } else {
             final FileChooser fileChooser = new FileChooser();
             file = fileChooser.showOpenDialog(primaryStage);
             if (file != null) {
@@ -223,7 +179,10 @@ public class MoreDetailsController {
     }
 
 
-
+    /*
+       Function to return to main menu
+       MainMenu window is opened
+    */
     private void returnToMainMenu() {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/view/MainMenu.fxml"));
@@ -235,12 +194,8 @@ public class MoreDetailsController {
             e.printStackTrace();
         }
 
-        ListViewController controller = loader.getController();
-
-
-
-        controller.initializeModelAndStage(logged_in_user,primaryStage,unilink);
-
+        MainMenuController controller = loader.getController();
+        controller.initializeModelAndStage(logged_in_user, primaryStage, unilink);
         primaryStage.setTitle("MainMenu");
         primaryStage.setScene(new Scene(root, 950, 500));
         primaryStage.centerOnScreen();
@@ -248,11 +203,15 @@ public class MoreDetailsController {
     }
 
 
-    public void initializeModelAndStage(String logged_in_user , Stage primaryStage , Post post, UniLink unilink)
-    {
+    /*
+       Function called to set current user , stage , current post object and unilink object
+       setInfo() function called
+       Response table populated from replyList of current Post object
+ */
+    public void initializeModelAndStage(String logged_in_user, Stage primaryStage, Post post, UniLink unilink) {
         this.unilink = unilink;
         this.objPost = post;
-        this.primaryStage=primaryStage;
+        this.primaryStage = primaryStage;
         this.logged_in_user = logged_in_user;
 
         setInfo(objPost);
@@ -260,15 +219,16 @@ public class MoreDetailsController {
         responser_response.setCellValueFactory(new PropertyValueFactory<Reply, Double>("value"));
         ObservableList<Reply> data = FXCollections.<Reply>observableArrayList();
         data.addAll(objPost.getReplyList());
-
         replyTable.setItems(data);
-
 
     }
 
-    public void setInfo(Post object)
-    {
-        File file = new File("images/"+object.getImage_name());
+    /*
+     Function called to set the details of each listcell according to type of Post
+     Object of type Post passed, using which details are set
+    */
+    public void setInfo(Post object) {
+        File file = new File("images/" + object.getImage_name());
         Image image = new Image(file.toURI().toString());
         System.out.println(file.toURI().toString());
         post_image.setImage(image);
@@ -277,43 +237,125 @@ public class MoreDetailsController {
         post_description.setText(object.getDescription());
         post_status.setText(object.getStatus());
         post_title.setText(object.getTitle());
-
-        if(object instanceof Event)
-        {
+        if (object instanceof Event) {
             setEventInfo(object);
-        }
-        else if(object instanceof Sale)
-        {
+        } else if (object instanceof Sale) {
             setSaleInfo(object);
-        }
-        else if(object instanceof Job)
-        {
+        } else if (object instanceof Job) {
             setJobInfo(object);
         }
     }
 
+
+    /*
+      Function called to set the information related to Event
+      Date,Venue, Capacity, Attendee count set
+    */
+    public void setEventInfo(Post object) {
+        Event objPost = (Event) object;
+
+        post_info_1_label.setText("Date");
+        post_info_2_label.setText("Venue");
+        post_info_3_label.setText("Capacity");
+        post_info_4_label.setText("Attendee Count");
+        post_info_1.setText(objPost.getDate());
+        post_info_2.setText(objPost.getVenue());
+        post_info_3.setText(String.valueOf(objPost.getCapacity()));
+        post_info_4.setText(String.valueOf(objPost.getAttendee_count()));
+
+        post_info_4.setEditable(false);
+        if (object.getReplyList().size() > 0) {
+            post_title.setEditable(false);
+            post_description.setEditable(false);
+            post_info_1.setEditable(false);
+            post_info_2.setEditable(false);
+            post_info_3.setEditable(false);
+        }
+
+
+    }
+
+    /*
+     Function called to set the information related to Sale
+     Minimum raise, highest offer set
+     */
+    public void setSaleInfo(Post object) {
+        Sale objPost = (Sale) object;
+
+        post_info_1_label.setText("Asking Price");
+        post_info_2_label.setText("Minimum Raise");
+        post_info_3_label.setText("Highest offer");
+        if (objPost.getHighest_offer() == 0) {
+            post_info_3.setText("NO OFFER");
+        } else {
+            post_info_3.setText(String.valueOf(objPost.getHighest_offer()));
+        }
+        post_info_1.setText(String.valueOf(objPost.getAsking_price()));
+        post_info_2.setText(String.valueOf(objPost.getMinimum_raise()));
+        post_info_3.setEditable(false);
+        post_info_4.setVisible(false);
+        post_info_4_label.setVisible(false);
+        if (object.getReplyList().size() > 0) {
+            post_title.setEditable(false);
+            post_description.setEditable(false);
+            post_info_1.setEditable(false);
+            post_info_2.setEditable(false);
+        }
+    }
+
+    /*
+    Function called to set the information related to Job
+    Proposed price, lowest offer set
+*/
+    public void setJobInfo(Post object) {
+        Job objPost = (Job) object;
+
+        post_info_1_label.setText("Proposed Price");
+        post_info_2_label.setText("Lowest Offer");
+
+        post_info_1.setText(String.valueOf(objPost.getProposed_price()));
+        if (objPost.getLowest_offer() == 0) {
+            post_info_2.setText("NO OFFER");
+        } else {
+            post_info_2.setText(String.valueOf(objPost.getLowest_offer()));
+        }
+        post_info_2.setEditable(false);
+
+        post_info_3.setVisible(false);
+        post_info_3_label.setVisible(false);
+
+        post_info_4.setVisible(false);
+        post_info_4_label.setVisible(false);
+        if (object.getReplyList().size() > 0) {
+            post_title.setEditable(false);
+            post_description.setEditable(false);
+            post_info_1.setEditable(false);
+        }
+    }
+
+
+
+    /*
+     Function To validate Event details after it is edited
+     If not validated , corresponding error message thrwon
+     If validated, event details updated
+    */
     public void editEventInfo() {
         alertBox.setAlertType(Alert.AlertType.ERROR);
-        int num;
+        int capacity;
         try {
-            num = Integer.parseInt(post_info_3.getText());
-            if (num <= 0) {
+            capacity = Integer.parseInt(post_info_3.getText());
+            if (capacity <= 0) {
                 alertBox.setContentText("Please enter a positive number for Capacity!");
                 alertBox.show();
                 return;
-
             }
-            // is an integer!
         } catch (NumberFormatException e) {
-            System.out.println("INT");
-
             alertBox.setContentText("Please enter a valid input for Capacity!");
             alertBox.show();
             return;
         }
-
         if (post_title.getText().isEmpty() || post_info_3.getText().isEmpty() || post_description.getText().isEmpty() || post_info_1.getText().isEmpty() || post_info_2.getText().isEmpty()) {
-
             alertBox.setAlertType(Alert.AlertType.ERROR);
             alertBox.setContentText("All fields are mandatory!");
             alertBox.show();
@@ -330,18 +372,13 @@ public class MoreDetailsController {
                     e.printStackTrace();
                 }
             }
-//            String new_id = unilink.generateAutoIncrementId("EVE");
-            //Event newEvent = new Event(new_id,event_title.getText(),event_description.getText(),event_venue.getText(),event_date.getValue().toString(),Integer.parseInt(event_capacity.getText()),logged_in_user,fileName);
-            //unilink.getPostCollection().add(newEvent);
             Event objEvent = (Event) objPost;
             objEvent.setTitle(post_title.getText());
             objEvent.setDescription(post_description.getText());
             objEvent.setVenue(post_info_1.getText());
             objEvent.setDate(post_info_2.getText());
             objEvent.setImage_name(fileName);
-            objEvent.setCapacity(num);
-
-
+            objEvent.setCapacity(capacity);
             alertBox.setAlertType(Alert.AlertType.INFORMATION);
             alertBox.setContentText("Event Details updated!");
             alertBox.show();
@@ -349,27 +386,28 @@ public class MoreDetailsController {
         }
     }
 
+    /*
+    Function To validate Sale details after it is edited
+    If not validated , corresponding error message thrown
+    If validated, event details updated
+ */
     public void editSaleInfo() {
         alertBox.setAlertType(Alert.AlertType.ERROR);
-        double num, num2;
+        double askingPrice, minimumRaise;
         try {
-             num = Double.parseDouble(post_info_1.getText());
-             num2 = Double.parseDouble(post_info_2.getText());
+            askingPrice = Double.parseDouble(post_info_1.getText());
+            minimumRaise = Double.parseDouble(post_info_2.getText());
 
-            if (num <= 0 || num2 <= 0) {
+            if (askingPrice <= 0 || minimumRaise <= 0) {
                 alertBox.setContentText("Please enter positive number for Asking price/Minimum raise");
                 alertBox.show();
                 return;
             }
-            // is an integer!
         } catch (NumberFormatException e) {
-            //System.out.println("INT");
-
             alertBox.setContentText("Please enter valid input for Asking price/Minimum raise");
             alertBox.show();
             return;
         }
-
         if (post_title.getText().isEmpty() || post_description.getText().isEmpty() || post_info_2.getText().isEmpty() || post_info_1.getText().isEmpty()) {
 
             alertBox.setAlertType(Alert.AlertType.ERROR);
@@ -388,53 +426,44 @@ public class MoreDetailsController {
                     e.printStackTrace();
                 }
             }
-            //String new_id = unilink.generateAutoIncrementId("SAL");
-           // Sale newSale = new Sale(new_id, sale_title.getText(), sale_description.getText(), Double.parseDouble(asking_price.getText()), Double.parseDouble(minimum_raise.getText()), logged_in_user, fileName);
-          //  unilink.getPostCollection().add(newSale);
             alertBox.setAlertType(Alert.AlertType.INFORMATION);
             Sale objSale = (Sale) objPost;
             objSale.setTitle(post_title.getText());
             objSale.setDescription(post_description.getText());
-            objSale.setAsking_price(num);
-            objSale.setMinimum_raise(num2);
+            objSale.setAsking_price(askingPrice);
+            objSale.setMinimum_raise(minimumRaise);
             objSale.setImage_name(fileName);
-
             alertBox.setContentText("Sale details updated! ");
             alertBox.show();
             refreshCurrentView();
         }
     }
 
-    public void editJobInfo()
-    {
+    /*
+        Function To validate Job details after it is edited
+        If not validated , corresponding error message thrown
+        If validated, Job details updated
+    */
+    public void editJobInfo() {
         alertBox.setAlertType(Alert.AlertType.ERROR);
-        double num;
-        try{
-             num = Double.parseDouble(post_info_1.getText());
-            if(num<=0)
-            {
+        double proposedPrice;
+        try {
+            proposedPrice = Double.parseDouble(post_info_1.getText());
+            if (proposedPrice <= 0) {
                 alertBox.setContentText("Please enter a positive number for proposed price!");
                 alertBox.show();
                 return;
             }
-            // is an integer!
         } catch (NumberFormatException e) {
-            //System.out.println("INT");
-
             alertBox.setContentText("Please enter valid input for Proposed price");
             alertBox.show();
             return;
         }
-
-        if(post_title.getText().isEmpty()  || post_description.getText().isEmpty() || post_info_1.getText().isEmpty() )
-        {
-
+        if (post_title.getText().isEmpty() || post_description.getText().isEmpty() || post_info_1.getText().isEmpty()) {
             alertBox.setAlertType(Alert.AlertType.ERROR);
             alertBox.setContentText("All fields are mandatory!");
             alertBox.show();
-        }
-
-        else {
+        } else {
             String fileName = "image-not-available.jpg";
             if (file != null) {
                 Path from = Paths.get(file.toURI());
@@ -447,126 +476,35 @@ public class MoreDetailsController {
                     e.printStackTrace();
                 }
             }
-            //String new_id = unilink.generateAutoIncrementId("JOB");
-            // Job newJob = new Job(new_id,job_title.getText(),job_description.getText(),Double.parseDouble(proposed_price.getText()),logged_in_user,fileName);
-            //   unilink.getPostCollection().add(newJob);
             alertBox.setAlertType(Alert.AlertType.INFORMATION);
             Job objJob = (Job) objPost;
             objJob.setTitle(post_title.getText());
             objJob.setDescription(post_description.getText());
-            objJob.setProposed_price(num);
+            objJob.setProposed_price(proposedPrice);
             objJob.setImage_name(fileName);
-
             alertBox.setContentText("Job details updated! ");
             alertBox.show();
             refreshCurrentView();
         }
     }
-    public void setEventInfo(Post object)
-    {
-        Event objPost = (Event) object;
-
-        post_info_1_label.setText("Date");
-        post_info_2_label.setText("Venue");
-        post_info_3_label.setText("Capacity");
-        post_info_4_label.setText("Attendee Count");
-        post_info_1.setText(objPost.getDate());
-        post_info_2.setText(objPost.getVenue());
-        post_info_3.setText(String.valueOf(objPost.getCapacity()));
-        post_info_4.setText(String.valueOf(objPost.getAttendee_count()));
-
-        post_info_4.setEditable(false);
-        if(object.getReplyList().size()>0)
-        {
-            post_title.setEditable(false);
-            post_description.setEditable(false);
-            post_info_1.setEditable(false);
-            post_info_2.setEditable(false);
-            post_info_3.setEditable(false);
-        }
-
-
-    }
-    public void setSaleInfo(Post object)
-    {
-        Sale objPost = (Sale) object;
-
-        post_info_1_label.setText("Asking Price");
-        post_info_2_label.setText("Minimum Raise");
-        post_info_3_label.setText("Highest offer");
-        if(objPost.getHighest_offer()==0)
-        {
-            post_info_3.setText("NO OFFER");
-        }
-        else {
-            post_info_3.setText(String.valueOf(objPost.getHighest_offer()));
-        }
-        post_info_1.setText(String.valueOf(objPost.getAsking_price()));
-        post_info_2.setText(String.valueOf(objPost.getMinimum_raise()));
-        post_info_3.setEditable(false);
-        post_info_4.setVisible(false);
-        post_info_4_label.setVisible(false);
-        if(object.getReplyList().size()>0)
-        {
-            post_title.setEditable(false);
-            post_description.setEditable(false);
-            post_info_1.setEditable(false);
-            post_info_2.setEditable(false);
-        }
 
 
 
-    }
-    public void setJobInfo(Post object)
-    {
-        Job objPost = (Job) object;
-
-        post_info_1_label.setText("Proposed Price");
-        post_info_2_label.setText("Lowest Offer");
-
-        post_info_1.setText(String.valueOf(objPost.getProposed_price()));
-        if(objPost.getLowest_offer()==0)
-        {
-            post_info_2.setText("NO OFFER");
-        }
-        else {
-            post_info_2.setText(String.valueOf(objPost.getLowest_offer()));
-        }
-        post_info_2.setEditable(false);
-
-        post_info_3.setVisible(false);
-        post_info_3_label.setVisible(false);
-
-        post_info_4.setVisible(false);
-        post_info_4_label.setVisible(false);
-        if(object.getReplyList().size()>0)
-        {
-            post_title.setEditable(false);
-            post_description.setEditable(false);
-            post_info_1.setEditable(false);
-        }
-
-
-
-    }
-
-
-    public void refreshCurrentView()
-    {
+    //Function called to refresh current screen , after any changes made to current screen details
+    public void refreshCurrentView() {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/view/MoreDetails.fxml"));
             Parent root = loader.load();
             MoreDetailsController controller = loader.getController();
-            controller.initializeModelAndStage(logged_in_user,primaryStage,objPost,unilink);
+            controller.initializeModelAndStage(logged_in_user, primaryStage, objPost, unilink);
 
             primaryStage.setTitle("More Details of Post");
             primaryStage.setScene(new Scene(root, 716, 480));
             primaryStage.centerOnScreen();
             primaryStage.show();
 
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

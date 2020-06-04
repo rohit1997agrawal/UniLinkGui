@@ -129,7 +129,7 @@ public class ReplySale {
             e.printStackTrace();
         }
 
-        ListViewController controller = loader.getController();
+        MainMenuController controller = loader.getController();
 
 
         controller.initializeModelAndStage(logged_in_user,primaryStage,unilink);

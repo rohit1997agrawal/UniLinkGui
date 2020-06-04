@@ -13,7 +13,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import model.Job;
 import model.Sale;
 import model.UniLink;
 
@@ -141,7 +140,7 @@ public class NewSaleController {
                 e.printStackTrace();
             }
 
-            ListViewController controller = loader.getController();
+            MainMenuController controller = loader.getController();
 
             controller.initializeModelAndStage(logged_in_user,primaryStage,unilink);
 
