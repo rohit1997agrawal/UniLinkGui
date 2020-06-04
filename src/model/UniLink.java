@@ -8,13 +8,13 @@ public class UniLink {
 
     //Common Collection to store and update Posts data
     //Collection of Type Post to store Post objects(Event/Job/Sale)
-    private  Set<Post> postCollection = new HashSet<>();
+    private Set<Post> postCollection = new HashSet<>();
 
-    public  Set<Post> getPostCollection() {
+    public Set<Post> getPostCollection() {
         return postCollection;
     }
 
-    public  void setPostCollection(Set<Post> postCollection) {
+    public void setPostCollection(Set<Post> postCollection) {
         this.postCollection = postCollection;
     }
 

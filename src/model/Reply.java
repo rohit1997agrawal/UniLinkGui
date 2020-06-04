@@ -6,6 +6,7 @@ public class Reply {
     private double value; //Double to store Reply value
     private String responder_id; //String to store Responder Id
 
+    //ToString used to export data to text file
     @Override
     public String toString() {
         return "" +

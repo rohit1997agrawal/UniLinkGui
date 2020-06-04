@@ -59,6 +59,8 @@ public class Sale extends Post {
         String sale_details = post_details + "\nMinimum Raise:\t$" + this.minimum_raise + "\nHighest Offer :\t" + highest_offer_value;
         return sale_details; //Contains All Details i.e Post Details + Sale Details
     }
+
+    //Called to add corresponding reply object to ReplyList
     public boolean handleReply(Reply reply) {
         this.highest_offer = reply.getValue();
         this.getReplyList().add(reply);
@@ -66,6 +68,7 @@ public class Sale extends Post {
     }
 
 
+    //ToString used to export data to text file
     @Override
     public String toString() {
         return  "id='" + getId() + '\'' +
@@ -80,41 +83,6 @@ public class Sale extends Post {
                 "~ replyList=" + getReplyList() ;
     }
 
-    //Implementation of Abstract method "handleReply" to handle Reply to an "Sale"
-    public boolean oldhandleReply(Reply reply) {
-        Boolean add_reply = false;
-        //To check if Job Post is open and offered Price is a positive number
-        if (this.getStatus().equals("OPEN"))
-            if (reply.getValue() > 0) {
-                //To check if proposed price is greater than current highest offer
-                if (reply.getValue() > this.highest_offer) {
-                    if (reply.getValue() >= (this.highest_offer + this.minimum_raise)) {
-                        this.getReplyList().add(reply);//All Criteria match ,  Adding current "Reply object" to ArrayList "ReplyList"
-                        this.highest_offer = reply.getValue(); //Update the "Lowest Offer" to current offer
-
-                        if (reply.getValue() >= this.asking_price) //To check if proposed price is greater than asking price
-                        {
-                            this.setStatus("CLOSE");   //Close the Sale and Sell the item to the current user
-                            System.out.println("ITEM SOLD to you!!");
-                        }
-                    } else {
-                        System.out.println("Your offer not greater than current highest offer by the set minimum Raise");
-                        return false;
-                    }
-
-                    return true;
-                } else {
-                    System.out.println("Your offer lower than current highest offer!");
-                }
-
-            } else {
-                System.out.println("Offer Price can not be negative! ");
-            }
-        else {
-            System.out.println("Sale Closed!");
-        }
-        return false; //One or more criteria not not passed
-    }
 
     //Implementation of Abstract method "getReplyDetails" to display "Offer History" and "Asking Price" of "Sale"
     public String getReplyDetails() {

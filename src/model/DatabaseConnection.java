@@ -7,7 +7,7 @@ import java.sql.SQLException;
 public class DatabaseConnection {
 
 
-    //To create database and get connection to the same
+    //To create database if not exists and get connection to it
 
     public static Connection getConnection(String dbName)
             throws SQLException, ClassNotFoundException {

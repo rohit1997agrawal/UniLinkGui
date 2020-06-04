@@ -48,6 +48,7 @@ public class Job extends Post {
         return job_details; //Contains All Details i.e Post Details + Job Details
     }
 
+    //Called to add corresponding reply object to ReplyList
     public boolean handleReply(Reply reply)
     {
         this.getReplyList().add(reply);   //Adding current "Reply object" to ArrayList "ReplyList"
@@ -55,6 +56,7 @@ public class Job extends Post {
         return true;
     }
 
+    //ToString used to export data to text file
     @Override
     public String toString() {
         return  "id='" + getId() + '\'' +
@@ -66,30 +68,6 @@ public class Job extends Post {
                 "~ proposed_price=" + proposed_price +
                 "~ lowest_offer=" + lowest_offer +
                 "~ replyList=" + getReplyList() ;
-
-    }
-
-    //Implementation of Abstract method "handleReply" to handle Reply to an "Job"
-    public boolean oldhandleReply(Reply reply) {
-        //To check if Job Post is open and offered Price is a positive number
-        if (this.getStatus().equals("OPEN"))
-            if (reply.getValue() > 0) {
-                //To check if proposed price is less than current lowest offer / No offers present
-                if (reply.getValue() < this.getLowest_offer() || this.getReplyList().size() == 0) {
-                    this.getReplyList().add(reply);   //Adding current "Reply object" to ArrayList "ReplyList"
-                    this.setLowest_offer(reply.getValue()); //Update the "Lowest Offer" to current offer
-                    return true;
-                } else {
-                    System.out.println("Offer higher than current lowest offer! ");
-                }
-            } else {
-                System.out.println("Offer Price can not be negative! ");
-            }
-        else {
-            System.out.println("Job Offer Closed!");
-        }
-        return false; //One or more criteria not not passed
-
 
     }
 

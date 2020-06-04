@@ -24,40 +24,31 @@ import java.nio.file.Paths;
 
 public class NewSaleController {
 
-    @FXML
-    private TextField sale_title;
-
-    @FXML
-    private TextField asking_price;
-
-    @FXML
-    private TextArea sale_description;
-
-    @FXML
-    private TextField minimum_raise;
-
-    @FXML
-    private Button upload;
-
-    @FXML
-    private Button submit;
-
-    @FXML
-    private ImageView sale_image;
-
     Alert alertBox = new Alert(Alert.AlertType.NONE);
-
     Stage primaryStage;
     File file;
     String logged_in_user;
-
     UniLink unilink;
-    public void initializeModelAndStage(Stage primaryStage, UniLink unilink , String logged_in_user)
-    {
-        this.unilink = unilink;
-        this.primaryStage=primaryStage;
-        this.logged_in_user = logged_in_user;
+    @FXML
+    private TextField sale_title;
+    @FXML
+    private TextField asking_price;
+    @FXML
+    private TextArea sale_description;
+    @FXML
+    private TextField minimum_raise;
+    @FXML
+    private Button upload;
+    @FXML
+    private Button submit;
+    @FXML
+    private ImageView sale_image;
 
+    //Function to receive and set the stage , and unilink object , and logged in user name
+    public void initializeModelAndStage(Stage primaryStage, UniLink unilink, String logged_in_user) {
+        this.unilink = unilink;
+        this.primaryStage = primaryStage;
+        this.logged_in_user = logged_in_user;
     }
 
 
@@ -66,6 +57,12 @@ public class NewSaleController {
         returnToMainMenu();
     }
 
+    /*
+   Function called when Submit Sale is clicked
+   Validates Sale details
+   If not validated , corresponding error message thrown
+   If validated, new Sale Created
+  */
     @FXML
     void submitSale(ActionEvent event) {
         alertBox.setAlertType(Alert.AlertType.ERROR);
@@ -73,23 +70,18 @@ public class NewSaleController {
             double num = Double.parseDouble(asking_price.getText());
             double num2 = Double.parseDouble(minimum_raise.getText());
 
-            if(num<=0 || num2<=0 )
-            {
+            if (num <= 0 || num2 <= 0) {
                 alertBox.setContentText("Please enter positive number for Asking price/Minimum raise");
                 alertBox.show();
                 return;
             }
-            // is an integer!
         } catch (NumberFormatException e) {
-            //System.out.println("INT");
-
             alertBox.setContentText("Please enter valid input for Asking price/Minimum raise");
             alertBox.show();
             return;
         }
 
-        if (sale_title.getText().isEmpty() || sale_description.getText().isEmpty() || minimum_raise.getText().isEmpty()  || asking_price.getText().isEmpty()) {
-
+        if (sale_title.getText().isEmpty() || sale_description.getText().isEmpty() || minimum_raise.getText().isEmpty() || asking_price.getText().isEmpty()) {
             alertBox.setAlertType(Alert.AlertType.ERROR);
             alertBox.setContentText("All fields are mandatory!");
             alertBox.show();
@@ -98,7 +90,6 @@ public class NewSaleController {
             if (file != null) {
                 Path from = Paths.get(file.toURI());
                 Path to = Paths.get(System.getProperty("user.dir") + "/images", file.getName());
-
                 try {
                     Files.copy(from, to);
                     fileName = file.getName();
@@ -116,38 +107,42 @@ public class NewSaleController {
         }
     }
 
+    /*
+   Function called when user clicks on Upload image
+   File chooser opens up , to choose image file to upload
+   */
     @FXML
     void uploadImage(ActionEvent event) {
 
-            final FileChooser fileChooser = new FileChooser();
-            file = fileChooser.showOpenDialog(primaryStage);
-            if (file != null) {
-                Image image1 = new Image(file.toURI().toString());
-                sale_image.setImage(image1);
+        final FileChooser fileChooser = new FileChooser();
+        file = fileChooser.showOpenDialog(primaryStage);
+        if (file != null) {
+            Image image1 = new Image(file.toURI().toString());
+            sale_image.setImage(image1);
 
-            }
+        }
     }
 
-        public void returnToMainMenu()
-        {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/view/MainMenu.fxml"));
+    //Function to open up Main Menu window
+    public void returnToMainMenu() {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/view/MainMenu.fxml"));
 
-            Parent root = null;
-            try {
-                root = loader.load();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            MainMenuController controller = loader.getController();
-
-            controller.initializeModelAndStage(logged_in_user,primaryStage,unilink);
-
-            primaryStage.setTitle("MainMenu");
-            primaryStage.setScene(new Scene(root, 950, 500));
-            primaryStage.centerOnScreen();
-            primaryStage.show();
+        Parent root = null;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+
+        MainMenuController controller = loader.getController();
+
+        controller.initializeModelAndStage(logged_in_user, primaryStage, unilink);
+
+        primaryStage.setTitle("MainMenu");
+        primaryStage.setScene(new Scene(root, 950, 500));
+        primaryStage.centerOnScreen();
+        primaryStage.show();
+    }
 
 }
