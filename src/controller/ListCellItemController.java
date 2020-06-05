@@ -201,7 +201,10 @@ public class ListCellItemController {
         this.object = object;
         File file = new File("images/" + object.getImage_name());
         Image image = new Image(file.toURI().toString());
-        System.out.println(file.toURI().toString());
+        if (image.isError()) {
+             file = new File("images/no_image.png");
+             image = new Image(file.toURI().toString());
+        }
         post_image.setImage(image);
         post_id.setText(object.getId());
         post_creator_id.setText(object.getCreator_id());
@@ -209,7 +212,6 @@ public class ListCellItemController {
         post_status.setText(object.getStatus());
         post_title.setText(object.getTitle());
         if (!object.getCreator_id().equals(logged_in_user)) {
-            System.out.println(object.getCreator_id() + "   " + logged_in_user);
             more_details_button.setVisible(false);
             reply_button.setVisible(true);
         }

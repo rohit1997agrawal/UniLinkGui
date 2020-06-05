@@ -2,9 +2,9 @@ package model;
 
 public class Reply {
 
-    private String post_id;  //String to store POST ID
-    private double value; //Double to store Reply value
-    private String responder_id; //String to store Responder Id
+    private String post_id;
+    private double value;
+    private String responder_id;
 
     //ToString used to export data to text file
     @Override

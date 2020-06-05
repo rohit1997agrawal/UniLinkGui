@@ -22,8 +22,6 @@ public class ListViewCell extends ListCell<Post> {
     @Override
     public void updateItem(Post object, boolean empty) {
         super.updateItem(object, empty);
-        System.out.println("SOP");
-        System.out.println(logged_in_user);
         if (object != null && !empty) {
             //List Cell item controller called , which renders each list cell and modifies listcell according to event type
             ListCellItemController data = new ListCellItemController(primaryStage, unilink, logged_in_user);

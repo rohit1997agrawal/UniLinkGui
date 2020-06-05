@@ -12,6 +12,20 @@ import java.util.Set;
 public class DatabaseHandling {
 
 
+    //To create database if not exists and get connection to it
+
+    public static Connection getConnection(String dbName)
+            throws SQLException, ClassNotFoundException {
+        //Registering the HSQLDB JDBC driver
+        Class.forName("org.hsqldb.jdbc.JDBCDriver");
+
+        // Database files will be created in the "database"
+
+        Connection con = DriverManager.getConnection
+                ("jdbc:hsqldb:file:database/" + dbName, "SA", "");
+        return con;
+    }
+
     //Function to get connection to database and  create table "post" and "reply"
     public void createTable() {
         Connection con = null;
@@ -19,7 +33,7 @@ public class DatabaseHandling {
         int result = 0;
         int result2 = 0;
         try {
-            con = DatabaseConnection.getConnection("testDB");
+            con = getConnection("testDB");
             stmt = con.createStatement();
 
             //Create table "Post" with "id" as primary key
@@ -52,7 +66,7 @@ public class DatabaseHandling {
         Statement stmt2 = null;
         int result = 0;
         try {
-            con = DatabaseConnection.getConnection("testDB");
+            con = getConnection("testDB");
             stmt = con.createStatement();
             stmt2 = con.createStatement();
             //  result = stmt.executeUpdate("INSERT INTO post (id,title,description,creator_id,status,image,event_venue,event_date,event_capacity,event_attendee_count) VALUES ('EVE008','First Event','Event description','ROH001','OPEN','rohit','rohits house','10/10/2020',10,0)");
@@ -61,8 +75,7 @@ public class DatabaseHandling {
         } catch (Exception e) {
             e.printStackTrace(System.out);
         }
-        System.out.println(result + " rows effected");
-        System.out.println("Rows inserted successfully");
+
     }
 
 
@@ -77,7 +90,7 @@ public class DatabaseHandling {
         Statement stmt = null;
         ResultSet result = null;
         try {
-            con = DatabaseConnection.getConnection("testDB");
+            con = getConnection("testDB");
             stmt = con.createStatement();
             result = stmt.executeQuery("select * from post");  //Gets all posts from "post" table
             while (result.next()) {
@@ -111,7 +124,7 @@ public class DatabaseHandling {
                         sale.getReplyList().add(reply);
                     }
                     sale.setStatus(result.getString("status"));
-                    sale.setHighest_offer(Double.parseDouble("sale_highest_offer"));
+                    sale.setHighest_offer(Double.parseDouble(result.getString("sale_highest_offer")));
                     postCollection.add(sale);
                 }
             }
@@ -130,7 +143,7 @@ public class DatabaseHandling {
         Connection con = null;
         try {
             int result;
-            con = DatabaseConnection.getConnection("testDB");
+            con = getConnection("testDB");
             Statement stmt = con.createStatement();
             result = stmt.executeUpdate("TRUNCATE TABLE reply");
             result = stmt.executeUpdate("TRUNCATE TABLE post");

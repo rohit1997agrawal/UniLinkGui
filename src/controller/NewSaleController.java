@@ -25,6 +25,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
+
 public class NewSaleController {
 
     Alert alertBox = new Alert(Alert.AlertType.NONE);
@@ -92,11 +94,11 @@ public class NewSaleController {
                 alertBox.setContentText("All fields are mandatory!");
                 alertBox.show();
             } else {
-                String fileName = "image-not-available.jpg";
+                String fileName = "no_image.png";
                 if (file != null) {
                     Path from = Paths.get(file.toURI());
                     Path to = Paths.get(System.getProperty("user.dir") + "/images", file.getName());
-                    Files.copy(from, to);
+                    Files.copy(from, to,REPLACE_EXISTING);
                     fileName = file.getName();
                 }
                 String new_id = unilink.generateAutoIncrementId("SAL");
@@ -128,7 +130,15 @@ public class NewSaleController {
         file = fileChooser.showOpenDialog(primaryStage);
         if (file != null) {
             Image image1 = new Image(file.toURI().toString());
-            sale_image.setImage(image1);
+            if (image1.isError()) {
+                file = null;
+                alertBox.setAlertType(Alert.AlertType.ERROR);
+                alertBox.setContentText("Unable to upload image! ");
+                alertBox.show();
+            }
+            else {
+                sale_image.setImage(image1);
+            }
 
         }
     }

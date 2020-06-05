@@ -13,42 +13,42 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.NewSaleController">
-   <children>
-      <GridPane hgap="10.0" layoutX="40.0" layoutY="61.0" prefHeight="209.0" prefWidth="326.0" vgap="10.0">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-            <Label text="Title:" />
-            <Label text="Description:" GridPane.rowIndex="1" />
-            <Label text="Asking Price:" GridPane.rowIndex="2" />
-            <TextField fx:id="sale_title" GridPane.columnIndex="1" />
-            <TextField fx:id="asking_price" layoutX="110.0" layoutY="43.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextArea fx:id="sale_description" prefHeight="34.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Label text="Minimum Raise:" GridPane.rowIndex="3" />
-            <TextField fx:id="minimum_raise" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-         </children>
-      </GridPane>
-      <Button fx:id="upload" layoutX="209.0" layoutY="270.0" mnemonicParsing="false" onAction="#uploadImage" text="Upload Image" />
-      <Button fx:id="submit" layoutX="312.0" layoutY="334.0" mnemonicParsing="false" onAction="#submitSale" text="Submit" />
-      <Label layoutX="216.0" layoutY="14.0" prefHeight="26.0" prefWidth="171.0" text="Create Sale Event" textAlignment="CENTER">
-         <font>
-            <Font name="System Bold" size="16.0" />
-         </font>
-         <effect>
-            <DropShadow color="#9c8f8f" radius="28.47" width="94.88" />
-         </effect>
-      </Label>
-      <ImageView fx:id="sale_image" fitHeight="74.0" fitWidth="110.0" layoutX="32.0" layoutY="221.0" pickOnBounds="true" preserveRatio="true" />
-      <Button layoutX="209.0" layoutY="334.0" mnemonicParsing="false" onAction="#onCancel" text="Cancel" />
-   </children>
+    <children>
+        <GridPane hgap="10.0" layoutX="40.0" layoutY="61.0" prefHeight="209.0" prefWidth="326.0" vgap="10.0">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <Label alignment="BOTTOM_RIGHT" prefHeight="18.0" prefWidth="166.0" text="Title:" />
+                <Label alignment="BOTTOM_RIGHT" prefHeight="18.0" prefWidth="170.0" text="Description:" GridPane.rowIndex="1" />
+                <Label alignment="BOTTOM_RIGHT" prefHeight="18.0" prefWidth="170.0" text="Asking price:" GridPane.rowIndex="2" />
+                <TextField fx:id="sale_title" GridPane.columnIndex="1" />
+                <TextField fx:id="asking_price" layoutX="110.0" layoutY="43.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <TextArea fx:id="sale_description" prefHeight="34.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <Label alignment="BOTTOM_RIGHT" prefHeight="18.0" prefWidth="174.0" text="Minimum raise:" GridPane.rowIndex="3" />
+                <TextField fx:id="minimum_raise" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                <Button fx:id="upload" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#uploadImage" prefHeight="26.0" prefWidth="158.0" text="Upload Image" textFill="#001f91" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            </children>
+        </GridPane>
+        <Button fx:id="submit" layoutX="312.0" layoutY="334.0" mnemonicParsing="false" onAction="#submitSale" text="Submit" textFill="#001f91" />
+        <Label layoutX="200.0" layoutY="14.0" prefHeight="27.0" prefWidth="187.0" text="Create a sale event" textAlignment="CENTER" textFill="#001f91">
+            <font>
+                <Font name="System Bold" size="18.0" />
+            </font>
+            <effect>
+                <DropShadow color="#9c8f8f" radius="28.47" width="94.88" />
+            </effect>
+        </Label>
+        <ImageView fx:id="sale_image" fitHeight="74.0" fitWidth="110.0" layoutX="32.0" layoutY="221.0" pickOnBounds="true" preserveRatio="true" />
+        <Button layoutX="209.0" layoutY="334.0" mnemonicParsing="false" onAction="#onCancel" text="Cancel" textFill="#ff0707" />
+    </children>
 </AnchorPane>

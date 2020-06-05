@@ -217,8 +217,8 @@
          <content>
             <TableView fx:id="replyTable" prefHeight="216.0" prefWidth="332.0">
                <columns>
-                  <TableColumn fx:id="responsder_id" editable="false" prefWidth="163.0" text="Responser Id" />
-                  <TableColumn fx:id="responser_response" editable="false" minWidth="9.0" prefWidth="153.0" text="Responder response" />
+                  <TableColumn fx:id="responsder_id" editable="false" prefWidth="163.0" text="Responder Id" />
+                  <TableColumn fx:id="responser_response" editable="false" minWidth="9.0" prefWidth="153.0" text="Response" />
                </columns>
             </TableView>
          </content>

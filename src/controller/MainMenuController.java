@@ -42,6 +42,20 @@ public class MainMenuController {
     private Button logout;
     private Set<Post> postCollection;
 
+    @FXML
+    void developerScreen(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/view/DeveloperInformation.fxml"));
+
+        Parent root = loader.load();
+        Stage newWindow = new Stage();
+        newWindow.setTitle("Developer Information");
+        newWindow.setScene(new Scene(root, 582, 241));
+        newWindow.centerOnScreen();
+        newWindow.show();
+
+    }
+
     /*
     Function called when user clicks on New Event button
     New window opens up to create New event

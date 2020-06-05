@@ -1,18 +1,18 @@
 package model;
 
 public class Event extends Post {
-    private String venue; //String to Store Venue of Event
-    private String date; //String to store date of Event
-    private int capacity; //Integer to store Capacity
-    private int attendee_count; //Integer to store attendee count
+    private String venue;
+    private String date;
+    private int capacity;
+    private int attendee_count;
 
     public Event() {
     }
 
     //Parametrized constructor to initialize attributes and create an "Event"
-    public Event(String id, String title, String description, String venue, String date, int capacity, String creator_id,String image_name) {
+    public Event(String id, String title, String description, String venue, String date, int capacity, String creator_id, String image_name) {
         //Calling Constructor of Super Class "Post" to initialize attributes of Post
-        super(id, title, description, creator_id,image_name);
+        super(id, title, description, creator_id, image_name);
         this.venue = venue;
         this.date = date;
         this.capacity = capacity;
@@ -49,7 +49,7 @@ public class Event extends Post {
                 "~ date='" + date + '\'' +
                 "~ capacity=" + capacity +
                 "~ attendee_count=" + attendee_count +
-                "~ replyList=" + getReplyList() ;
+                "~ replyList=" + getReplyList();
 
     }
 
@@ -69,17 +69,9 @@ public class Event extends Post {
         this.attendee_count = attendee_count;
     }
 
-    //Override the getPostDetails() method of Super Class
-    @Override
-    public String getPostDetails() {
-        String post_details = super.getPostDetails();  //To call the method from Super Class "Post"
-        String event_details = post_details + "\nVenue:\t\t\t" + this.getVenue() + "\nDate:\t\t\t" + this.getDate() + "\nCapacity:\t\t" + this.getCapacity() + "\nAttendees:\t\t" + this.getAttendee_count();
-        return event_details; //Contains All Details i.e Post Details + Event Details
-    }
 
     //Called to add corresponding reply object to ReplyList
-    public boolean handleReply(Reply reply)
-    {
+    public boolean handleReply(Reply reply) {
         this.getReplyList().add(reply);
         this.attendee_count++;
         //Condition to Close the event if Attendees count match the capacity
@@ -87,24 +79,6 @@ public class Event extends Post {
             this.setStatus("CLOSED");
         }
         return true;
-    }
-
-
-
-    //Implementation of Abstract method "getReplyDetails" to display "Attendee List" of "Event Post"
-    public String getReplyDetails() {
-        String reply_details = "";
-        if (this.getReplyList().size() == 0) {
-            reply_details = "EMPTY";
-        } else {
-            for (Reply iterator : this.getReplyList()) {
-                reply_details = reply_details + "," + iterator.getResponder_id();
-            }
-
-            reply_details = reply_details.substring(1);   //To Remove the first character "," from the String
-        }
-        return "Attendee list: \t" + reply_details;
-
     }
 
 

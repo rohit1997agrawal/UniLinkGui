@@ -20,8 +20,13 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.Optional;
+
+import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
 public class MoreDetailsController {
 
@@ -170,7 +175,15 @@ public class MoreDetailsController {
             file = fileChooser.showOpenDialog(primaryStage);
             if (file != null) {
                 Image image1 = new Image(file.toURI().toString());
-                post_image.setImage(image1);
+                if (image1.isError()) {
+                    file = null;
+                    alertBox.setAlertType(Alert.AlertType.ERROR);
+                    alertBox.setContentText("Unable to upload image! ");
+                    alertBox.show();
+                }
+                else {
+                    post_image.setImage(image1);
+                }
 
             }
         }
@@ -230,6 +243,10 @@ public class MoreDetailsController {
     public void setInfo(Post object) {
         File file = new File("images/" + object.getImage_name());
         Image image = new Image(file.toURI().toString());
+        if (image.isError()) {
+            file = new File("images/no_image.png");
+            image = new Image(file.toURI().toString());
+        }
         System.out.println(file.toURI().toString());
         post_image.setImage(image);
         post_id.setText(object.getId());
@@ -355,18 +372,24 @@ public class MoreDetailsController {
             alertBox.show();
             return;
         }
+        if(!isValidFormat(post_info_1.getText()))
+        {
+            alertBox.setContentText("Invalid date format! Enter date in format yyyy-MM-dd");
+            alertBox.show();
+            return;
+        }
         if (post_title.getText().isEmpty() || post_info_3.getText().isEmpty() || post_description.getText().isEmpty() || post_info_1.getText().isEmpty() || post_info_2.getText().isEmpty()) {
             alertBox.setAlertType(Alert.AlertType.ERROR);
             alertBox.setContentText("All fields are mandatory!");
             alertBox.show();
         } else {
-            String fileName = "image-not-available.jpg";
+            String fileName = objPost.getImage_name();
             if (file != null) {
                 Path from = Paths.get(file.toURI());
                 Path to = Paths.get(System.getProperty("user.dir") + "/images", file.getName());
 
                 try {
-                    Files.copy(from, to);
+                    Files.copy(from, to,REPLACE_EXISTING);
                     fileName = file.getName();
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -375,8 +398,8 @@ public class MoreDetailsController {
             Event objEvent = (Event) objPost;
             objEvent.setTitle(post_title.getText());
             objEvent.setDescription(post_description.getText());
-            objEvent.setVenue(post_info_1.getText());
-            objEvent.setDate(post_info_2.getText());
+            objEvent.setVenue(post_info_2.getText());
+            objEvent.setDate(post_info_1.getText());
             objEvent.setImage_name(fileName);
             objEvent.setCapacity(capacity);
             alertBox.setAlertType(Alert.AlertType.INFORMATION);
@@ -386,6 +409,21 @@ public class MoreDetailsController {
         }
     }
 
+    //Function to validate date format as yyyy-MM-dd
+    public static boolean isValidFormat(String value) {
+        Date date = null;
+        String format="yyyy-MM-dd";
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat(format);
+            date = sdf.parse(value);
+            if (!value.equals(sdf.format(date))) {
+                date = null;
+            }
+        } catch (ParseException ex) {
+//            ex.printStackTrace();
+        }
+        return date != null;
+    }
     /*
     Function To validate Sale details after it is edited
     If not validated , corresponding error message thrown
@@ -414,13 +452,13 @@ public class MoreDetailsController {
             alertBox.setContentText("All fields are mandatory!");
             alertBox.show();
         } else {
-            String fileName = "image-not-available.jpg";
+            String fileName = objPost.getImage_name();
             if (file != null) {
                 Path from = Paths.get(file.toURI());
                 Path to = Paths.get(System.getProperty("user.dir") + "/images", file.getName());
 
                 try {
-                    Files.copy(from, to);
+                    Files.copy(from, to,REPLACE_EXISTING);
                     fileName = file.getName();
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -464,13 +502,13 @@ public class MoreDetailsController {
             alertBox.setContentText("All fields are mandatory!");
             alertBox.show();
         } else {
-            String fileName = "image-not-available.jpg";
+            String fileName = objPost.getImage_name();
             if (file != null) {
                 Path from = Paths.get(file.toURI());
                 Path to = Paths.get(System.getProperty("user.dir") + "/images", file.getName());
 
                 try {
-                    Files.copy(from, to);
+                    Files.copy(from, to,REPLACE_EXISTING);
                     fileName = file.getName();
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -500,7 +538,7 @@ public class MoreDetailsController {
             controller.initializeModelAndStage(logged_in_user, primaryStage, objPost, unilink);
 
             primaryStage.setTitle("More Details of Post");
-            primaryStage.setScene(new Scene(root, 716, 480));
+            primaryStage.setScene(new Scene(root, 809, 514));
             primaryStage.centerOnScreen();
             primaryStage.show();
 

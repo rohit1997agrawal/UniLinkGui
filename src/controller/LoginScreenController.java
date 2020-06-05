@@ -61,7 +61,7 @@ public class LoginScreenController {
                 //Passes stage, unilink object and current logged in user to Main Menu controller
                 controller.initializeModelAndStage(txtUserName.getText(), primaryStage, unilink);
 
-                primaryStage.setTitle("MainMenu");
+                primaryStage.setTitle("Main Menu");
                 primaryStage.setScene(new Scene(root, 950, 500));
                 primaryStage.centerOnScreen();
                 primaryStage.show();

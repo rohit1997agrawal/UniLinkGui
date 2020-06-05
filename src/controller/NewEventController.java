@@ -15,12 +15,15 @@ import model.exceptions.CapacityInvalidException;
 import model.Event;
 import model.UniLink;
 
+import javax.swing.text.DateFormatter;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.format.DateTimeFormatter;
+
+import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
 public class NewEventController {
 
@@ -29,6 +32,7 @@ public class NewEventController {
     File file;
     String logged_in_user;
     UniLink unilink;
+
 
     @FXML
     private DatePicker event_date;
@@ -79,11 +83,11 @@ public class NewEventController {
                 alertBox.setContentText("All fields are mandatory!");
                 alertBox.show();
             } else {
-                String fileName = "image-not-available.jpg";
+                String fileName = "no_image.png";
                 if (file != null) {
                     Path from = Paths.get(file.toURI());
                     Path to = Paths.get(System.getProperty("user.dir") + "/images", file.getName());
-                    Files.copy(from, to);
+                    Files.copy(from, to,REPLACE_EXISTING);
                     fileName = file.getName();
                 }
                 String new_id = unilink.generateAutoIncrementId("EVE");
@@ -116,7 +120,16 @@ public class NewEventController {
         file = fileChooser.showOpenDialog(primaryStage);
         if (file != null) {
             Image image1 = new Image(file.toURI().toString());
-            event_image.setImage(image1);
+            if (image1.isError()) {
+                file = null;
+                alertBox.setAlertType(Alert.AlertType.ERROR);
+                alertBox.setContentText("Unable to upload image! ");
+                alertBox.show();
+            }
+            else {
+                event_image.setImage(image1);
+            }
+
         }
     }
 
