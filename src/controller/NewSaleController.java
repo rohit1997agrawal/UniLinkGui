@@ -15,6 +15,9 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import model.Sale;
 import model.UniLink;
+import model.exceptions.AskingPriceInvalidException;
+import model.exceptions.MinimumRaiseInvalidException;
+import model.exceptions.ProposedPriceInvalidException;
 
 import java.io.File;
 import java.io.IOException;
@@ -67,43 +70,50 @@ public class NewSaleController {
     void submitSale(ActionEvent event) {
         alertBox.setAlertType(Alert.AlertType.ERROR);
         try {
-            double num = Double.parseDouble(asking_price.getText());
-            double num2 = Double.parseDouble(minimum_raise.getText());
-
-            if (num <= 0 || num2 <= 0) {
-                alertBox.setContentText("Please enter positive number for Asking price/Minimum raise");
-                alertBox.show();
-                return;
+            try {
+                double num = Double.parseDouble(asking_price.getText());
+                if (num <= 0) {
+                    throw new AskingPriceInvalidException("Please enter positive number for Asking price");
+                }
+            } catch (NumberFormatException e) {
+                throw new AskingPriceInvalidException("Please enter valid input for Asking price");
             }
-        } catch (NumberFormatException e) {
-            alertBox.setContentText("Please enter valid input for Asking price/Minimum raise");
-            alertBox.show();
-            return;
-        }
+            try {
+                double num2 = Double.parseDouble(minimum_raise.getText());
+                if (num2 <= 0) {
+                    throw new MinimumRaiseInvalidException("Please enter positive number for Minimum raise");
+                }
+            } catch (NumberFormatException e) {
+                throw new MinimumRaiseInvalidException("Please enter valid input for Minimum raise");
+            }
 
-        if (sale_title.getText().isEmpty() || sale_description.getText().isEmpty() || minimum_raise.getText().isEmpty() || asking_price.getText().isEmpty()) {
-            alertBox.setAlertType(Alert.AlertType.ERROR);
-            alertBox.setContentText("All fields are mandatory!");
-            alertBox.show();
-        } else {
-            String fileName = "image-not-available.jpg";
-            if (file != null) {
-                Path from = Paths.get(file.toURI());
-                Path to = Paths.get(System.getProperty("user.dir") + "/images", file.getName());
-                try {
+            if (sale_title.getText().isEmpty() || sale_description.getText().isEmpty() || minimum_raise.getText().isEmpty() || asking_price.getText().isEmpty()) {
+                alertBox.setAlertType(Alert.AlertType.ERROR);
+                alertBox.setContentText("All fields are mandatory!");
+                alertBox.show();
+            } else {
+                String fileName = "image-not-available.jpg";
+                if (file != null) {
+                    Path from = Paths.get(file.toURI());
+                    Path to = Paths.get(System.getProperty("user.dir") + "/images", file.getName());
                     Files.copy(from, to);
                     fileName = file.getName();
-                } catch (IOException e) {
-                    e.printStackTrace();
                 }
+                String new_id = unilink.generateAutoIncrementId("SAL");
+                Sale newSale = new Sale(new_id, sale_title.getText(), sale_description.getText(), Double.parseDouble(asking_price.getText()), Double.parseDouble(minimum_raise.getText()), logged_in_user, fileName);
+                unilink.getPostCollection().add(newSale);
+                alertBox.setAlertType(Alert.AlertType.INFORMATION);
+                alertBox.setContentText("New Sale Created! ");
+                alertBox.show();
+                returnToMainMenu();
             }
-            String new_id = unilink.generateAutoIncrementId("SAL");
-            Sale newSale = new Sale(new_id, sale_title.getText(), sale_description.getText(), Double.parseDouble(asking_price.getText()), Double.parseDouble(minimum_raise.getText()), logged_in_user, fileName);
-            unilink.getPostCollection().add(newSale);
-            alertBox.setAlertType(Alert.AlertType.INFORMATION);
-            alertBox.setContentText("New Sale Created! ");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (AskingPriceInvalidException | MinimumRaiseInvalidException ex) {
+            alertBox.setAlertType(Alert.AlertType.ERROR);
+            alertBox.setContentText(ex.getMessage());
             alertBox.show();
-            returnToMainMenu();
         }
     }
 
@@ -127,18 +137,14 @@ public class NewSaleController {
     public void returnToMainMenu() {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/view/MainMenu.fxml"));
-
         Parent root = null;
         try {
             root = loader.load();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         MainMenuController controller = loader.getController();
-
         controller.initializeModelAndStage(logged_in_user, primaryStage, unilink);
-
         primaryStage.setTitle("MainMenu");
         primaryStage.setScene(new Scene(root, 950, 500));
         primaryStage.centerOnScreen();

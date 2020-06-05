@@ -13,6 +13,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import model.*;
+import model.exceptions.PostClosedException;
 
 import java.io.File;
 import java.io.IOException;
@@ -100,20 +101,24 @@ public class ListCellItemController {
     */
     @FXML
     void handleReply(ActionEvent event) {
-
-        alertBox.setAlertType(Alert.AlertType.ERROR);
-
-        if (object.getStatus().equals("CLOSED")) {
-            alertBox.setContentText("Sorry! Post is closed!");
+        try {
+            alertBox.setAlertType(Alert.AlertType.ERROR);
+            if (object.getStatus().equals("CLOSED")) {
+                throw new PostClosedException("Sorry! Post is closed!");
+            }
+            if (object instanceof Event) {
+                handleReplyEvent(object);
+            } else if (object instanceof Sale) {
+                handleReplySale(object);
+            } else if (object instanceof Job) {
+                handleReplyJob(object);
+            }
+        }
+        catch(PostClosedException ex)
+        {
+            alertBox.setContentText(ex.getMessage());
             alertBox.show();
             return;
-        }
-        if (object instanceof Event) {
-            handleReplyEvent(object);
-        } else if (object instanceof Sale) {
-            handleReplySale(object);
-        } else if (object instanceof Job) {
-            handleReplyJob(object);
         }
 
     }

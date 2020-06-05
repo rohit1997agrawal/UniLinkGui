@@ -10,6 +10,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import model.*;
+import model.exceptions.JobOfferInvalidException;
+import model.exceptions.SaleOfferInvalidException;
 
 import java.io.IOException;
 
@@ -42,13 +44,16 @@ public class ReplySale {
 */
     @FXML
     void submitReply(ActionEvent event) {
-        alertBox.setAlertType(Alert.AlertType.ERROR);
         try {
-            double number = Double.parseDouble(sale_offer.getText());
+            alertBox.setAlertType(Alert.AlertType.ERROR);
+            double number;
+            try {
+                number = Double.parseDouble(sale_offer.getText());
+            } catch (NumberFormatException e) {
+                throw new SaleOfferInvalidException("Please enter valid input for Sale offer");
+            }
             if (number <= 0) {
-                alertBox.setContentText("Please enter positive for job offer");
-                alertBox.show();
-
+                throw new SaleOfferInvalidException("Please enter positive for Sale offer");
             } else if (number > objPost.getHighest_offer()) {
                 if (number >= (objPost.getHighest_offer() + objPost.getMinimum_raise())) {
                     Reply reply = new Reply(objPost.getId(), number, logged_in_user);
@@ -68,19 +73,18 @@ public class ReplySale {
                     return;
 
                 } else {
-                    alertBox.setContentText("Your offer not greater than current highest offer by the set minimum Raise!");
-                    alertBox.show();
+                    throw new SaleOfferInvalidException("Your offer not greater than current highest offer by the set minimum Raise!");
                 }
             } else {
-                alertBox.setContentText("Offer lower than current highest offer!");
-                alertBox.show();
+                throw new SaleOfferInvalidException("Offer lower than current highest offer!");
             }
-
-        } catch (NumberFormatException e) {
-            alertBox.setContentText("Please enter valid input for Sale offer");
+        } catch (SaleOfferInvalidException ex) {
+            alertBox.setAlertType(Alert.AlertType.ERROR);
+            alertBox.setContentText(ex.getMessage());
             alertBox.show();
         }
     }
+
 
     //Function to receive and set the stage , and unilink object  logged in user name and corresponding post object
     public void initializeModelAndStage(String logged_in_user, Stage primaryStage, Post post, UniLink unilink) {

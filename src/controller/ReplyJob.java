@@ -10,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import model.*;
+import model.exceptions.JobOfferInvalidException;
 
 import java.io.IOException;
 
@@ -40,12 +41,24 @@ public class ReplyJob {
 */
     @FXML
     void submitReply(ActionEvent event) {
-        alertBox.setAlertType(Alert.AlertType.ERROR);
         try {
-            double number = Double.parseDouble(job_offer.getText());
+            alertBox.setAlertType(Alert.AlertType.ERROR);
+            double number;
+            try {
+                number = Double.parseDouble(job_offer.getText());
+            } catch (NumberFormatException s) {
+                throw new JobOfferInvalidException("Please enter valid input for job offer");
+            }
             if (number <= 0) {
-                alertBox.setContentText("Please enter positive for job offer");
+                throw new JobOfferInvalidException("Please enter positive for job offer");
+            } else if (number == 0.1) {
+                Reply reply = new Reply(objPost.getId(), number, logged_in_user);
+                objPost.handleReply(reply);
+                alertBox.setAlertType(Alert.AlertType.INFORMATION);
+                objPost.setStatus("CLOSED");
+                alertBox.setContentText("Congratulations! You have received the offer! ");
                 alertBox.show();
+                returnToMainMenu();
             } else if (number < objPost.getLowest_offer() || objPost.getReplyList().size() == 0) {
                 Reply reply = new Reply(objPost.getId(), number, logged_in_user);
                 objPost.handleReply(reply);
@@ -54,13 +67,12 @@ public class ReplyJob {
                 alertBox.show();
                 returnToMainMenu();
             } else {
-                alertBox.setContentText("Offer higher than current lowest offer!");
-                alertBox.show();
-
+                throw new JobOfferInvalidException("Offer higher than current lowest offer!");
             }
 
-        } catch (NumberFormatException e) {
-            alertBox.setContentText("Please enter valid input for job offer");
+        } catch (JobOfferInvalidException ex) {
+            alertBox.setAlertType(Alert.AlertType.ERROR);
+            alertBox.setContentText(ex.getMessage());
             alertBox.show();
 
         }

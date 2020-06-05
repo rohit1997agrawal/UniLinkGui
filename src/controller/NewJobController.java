@@ -15,6 +15,8 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import model.Job;
 import model.UniLink;
+import model.exceptions.CapacityInvalidException;
+import model.exceptions.ProposedPriceInvalidException;
 
 import java.io.File;
 import java.io.IOException;
@@ -62,43 +64,42 @@ public class NewJobController {
   */
     @FXML
     void submitJob(ActionEvent event) {
-        alertBox.setAlertType(Alert.AlertType.ERROR);
         try {
-            double num = Double.parseDouble(proposed_price.getText());
-            if (num <= 0) {
-                alertBox.setContentText("Please enter a positive number for proposed price!");
-                alertBox.show();
-                return;
-            }
-        } catch (NumberFormatException e) {
-            alertBox.setContentText("Please enter valid input for Proposed price");
-            alertBox.show();
-            return;
-        }
-        if (job_title.getText().isEmpty() || job_description.getText().isEmpty() || proposed_price.getText().isEmpty()) {
             alertBox.setAlertType(Alert.AlertType.ERROR);
-            alertBox.setContentText("All fields are mandatory!");
-            alertBox.show();
-        } else {
-            String fileName = "image-not-available.jpg";
-            if (file != null) {
-                Path from = Paths.get(file.toURI());
-                Path to = Paths.get(System.getProperty("user.dir") + "/images", file.getName());
-
-                try {
+            try {
+                double num = Double.parseDouble(proposed_price.getText());
+                if (num <= 0) {
+                    throw new ProposedPriceInvalidException("Please enter a positive number for proposed price!");
+                }
+            } catch (NumberFormatException e) {
+                throw new ProposedPriceInvalidException("Please enter valid input for Proposed price");
+            }
+            if (job_title.getText().isEmpty() || job_description.getText().isEmpty() || proposed_price.getText().isEmpty()) {
+                alertBox.setAlertType(Alert.AlertType.ERROR);
+                alertBox.setContentText("All fields are mandatory!");
+                alertBox.show();
+            } else {
+                String fileName = "image-not-available.jpg";
+                if (file != null) {
+                    Path from = Paths.get(file.toURI());
+                    Path to = Paths.get(System.getProperty("user.dir") + "/images", file.getName());
                     Files.copy(from, to);
                     fileName = file.getName();
-                } catch (IOException e) {
-                    e.printStackTrace();
                 }
+                String new_id = unilink.generateAutoIncrementId("JOB");
+                Job newJob = new Job(new_id, job_title.getText(), job_description.getText(), Double.parseDouble(proposed_price.getText()), logged_in_user, fileName);
+                unilink.getPostCollection().add(newJob);
+                alertBox.setAlertType(Alert.AlertType.INFORMATION);
+                alertBox.setContentText("New Job Created! ");
+                alertBox.show();
+                returnToMainMenu();
             }
-            String new_id = unilink.generateAutoIncrementId("JOB");
-            Job newJob = new Job(new_id, job_title.getText(), job_description.getText(), Double.parseDouble(proposed_price.getText()), logged_in_user, fileName);
-            unilink.getPostCollection().add(newJob);
-            alertBox.setAlertType(Alert.AlertType.INFORMATION);
-            alertBox.setContentText("New Job Created! ");
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ProposedPriceInvalidException ex) {
+            alertBox.setAlertType(Alert.AlertType.ERROR);
+            alertBox.setContentText(ex.getMessage());
             alertBox.show();
-            returnToMainMenu();
         }
     }
 

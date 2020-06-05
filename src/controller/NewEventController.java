@@ -11,6 +11,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import model.exceptions.CapacityInvalidException;
 import model.Event;
 import model.UniLink;
 
@@ -19,6 +20,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.format.DateTimeFormatter;
 
 public class NewEventController {
 
@@ -27,6 +29,7 @@ public class NewEventController {
     File file;
     String logged_in_user;
     UniLink unilink;
+
     @FXML
     private DatePicker event_date;
     @FXML
@@ -59,46 +62,47 @@ public class NewEventController {
     If validated, new Event Created
    */
     @FXML
-    void submitEvent(ActionEvent event) throws IOException {
-        alertBox.setAlertType(Alert.AlertType.ERROR);
+    void submitEvent(ActionEvent event) {
         try {
-            int num = Integer.parseInt(event_capacity.getText());
-            if (num <= 0) {
-                alertBox.setContentText("Please enter a positive number for Capacity!");
-                alertBox.show();
-                return;
-            }
-        } catch (NumberFormatException e) {
-            alertBox.setContentText("Please enter a valid input for Capacity!");
-            alertBox.show();
-            return;
-        }
-        if (event_title.getText().isEmpty() || event_capacity.getText().isEmpty() || event_description.getText().isEmpty() || event_venue.getText().isEmpty() || event_date.getValue() == null) {
-
             alertBox.setAlertType(Alert.AlertType.ERROR);
-            alertBox.setContentText("All fields are mandatory!");
-            alertBox.show();
-        } else {
-            String fileName = "image-not-available.jpg";
-            if (file != null) {
-                Path from = Paths.get(file.toURI());
-                Path to = Paths.get(System.getProperty("user.dir") + "/images", file.getName());
+            try {
+                int num = Integer.parseInt(event_capacity.getText());
+                if (num <= 0) {
+                    throw new CapacityInvalidException("Please enter a positive number for Capacity!");
+                }
+            } catch (NumberFormatException e) {
+                throw new CapacityInvalidException("Please enter a valid input for Capacity!");
+            }
+            if (event_title.getText().isEmpty() || event_capacity.getText().isEmpty() || event_description.getText().isEmpty() || event_venue.getText().isEmpty() || event_date.getValue() == null) {
 
-                try {
+                alertBox.setAlertType(Alert.AlertType.ERROR);
+                alertBox.setContentText("All fields are mandatory!");
+                alertBox.show();
+            } else {
+                String fileName = "image-not-available.jpg";
+                if (file != null) {
+                    Path from = Paths.get(file.toURI());
+                    Path to = Paths.get(System.getProperty("user.dir") + "/images", file.getName());
                     Files.copy(from, to);
                     fileName = file.getName();
-                } catch (IOException e) {
-                    e.printStackTrace();
                 }
+                String new_id = unilink.generateAutoIncrementId("EVE");
+                Event newEvent = new Event(new_id, event_title.getText(), event_description.getText(), event_venue.getText(), event_date.getValue().toString(), Integer.parseInt(event_capacity.getText()), logged_in_user, fileName);
+                unilink.getPostCollection().add(newEvent);
+                alertBox.setAlertType(Alert.AlertType.INFORMATION);
+                alertBox.setContentText("New Event Created! ");
+                alertBox.show();
+                returnToMainMenu();
             }
-            String new_id = unilink.generateAutoIncrementId("EVE");
-            Event newEvent = new Event(new_id, event_title.getText(), event_description.getText(), event_venue.getText(), event_date.getValue().toString(), Integer.parseInt(event_capacity.getText()), logged_in_user, fileName);
-            unilink.getPostCollection().add(newEvent);
-            alertBox.setAlertType(Alert.AlertType.INFORMATION);
-            alertBox.setContentText("New Event Created! ");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (CapacityInvalidException ex) {
+            alertBox.setAlertType(Alert.AlertType.ERROR);
+            alertBox.setContentText(ex.getMessage());
             alertBox.show();
-            returnToMainMenu();
         }
+
     }
 
     /*
