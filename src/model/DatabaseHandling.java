@@ -152,15 +152,13 @@ public class DatabaseHandling {
             for (Post object : postCollection) {
                 String insertQuery = "null";
                 if (object instanceof Event) {
-                    insertQuery = "INSERT INTO post (id,title,description,creator_id,status,image,event_venue,event_date,event_capacity,event_attendee_count) VALUES ('" + object.getId() + "','" + object.getTitle() + "','" + object.getDescription() + "','" + object.getCreator_id() + "','" + object.getStatus() + "','" + object.getImage_name() + "','" + ((Event) object).getVenue() + "','" + ((Event) object).getDate() + "'," + ((Event) object).getCapacity() + "," + ((Event) object).getAttendee_count() + ")";
-                    System.out.println(insertQuery);
+                    insertQuery = "INSERT INTO post (id,title,description,creator_id,status,image,event_venue,event_date,event_capacity,event_attendee_count) VALUES ('" + object.getId() + "','" + object.getTitle().replace("'","''") + "','" + object.getDescription().replace("'","''") + "','" + object.getCreator_id() + "','" + object.getStatus() + "','" + object.getImage_name() + "','" + ((Event) object).getVenue().replace("'","''") + "','" + ((Event) object).getDate() + "'," + ((Event) object).getCapacity() + "," + ((Event) object).getAttendee_count() + ")";
                 } else if (object instanceof Sale) {
-                    insertQuery = "INSERT INTO post (id,title,description,creator_id,status,image,sale_asking_price,sale_highest_offer,sale_minimum_raise) VALUES ('" + object.getId() + "','" + object.getTitle() + "','" + object.getDescription() + "','" + object.getCreator_id() + "','" + object.getStatus() + "','" + object.getImage_name() + "'," + ((Sale) object).getAsking_price() + "," + ((Sale) object).getHighest_offer() + "," + ((Sale) object).getMinimum_raise() + ")";
-                    System.out.println(insertQuery);
+                    insertQuery = "INSERT INTO post (id,title,description,creator_id,status,image,sale_asking_price,sale_highest_offer,sale_minimum_raise) VALUES ('" + object.getId() + "','" + object.getTitle().replace("'","''") + "','" + object.getDescription().replace("'","''") + "','" + object.getCreator_id() + "','" + object.getStatus() + "','" + object.getImage_name() + "'," + ((Sale) object).getAsking_price() + "," + ((Sale) object).getHighest_offer() + "," + ((Sale) object).getMinimum_raise() + ")";
                 } else if (object instanceof Job) {
-                    insertQuery = "INSERT INTO post (id,title,description,creator_id,status,image,job_proposed_price,job_lowest_offer) VALUES ('" + object.getId() + "','" + object.getTitle() + "','" + object.getDescription() + "','" + object.getCreator_id() + "','" + object.getStatus() + "','" + object.getImage_name() + "'," + ((Job) object).getProposed_price() + "," + ((Job) object).getLowest_offer() + ")";
-                    System.out.println(insertQuery);
+                    insertQuery = "INSERT INTO post (id,title,description,creator_id,status,image,job_proposed_price,job_lowest_offer) VALUES ('" + object.getId() + "','" + object.getTitle().replace("'","''") + "','" + object.getDescription().replace("'","''") + "','" + object.getCreator_id() + "','" + object.getStatus() + "','" + object.getImage_name() + "'," + ((Job) object).getProposed_price() + "," + ((Job) object).getLowest_offer() + ")";
                 }
+                System.out.println(insertQuery);
                 result = stmt.executeUpdate(insertQuery);
                 con.commit();
                 for (Reply reply : object.getReplyList()) {
