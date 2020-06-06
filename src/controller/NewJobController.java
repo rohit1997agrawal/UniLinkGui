@@ -71,10 +71,10 @@ public class NewJobController {
             try {
                 double num = Double.parseDouble(proposed_price.getText());
                 if (num <= 0) {
-                    throw new ProposedPriceInvalidException("Please enter a positive number for proposed price!");
+                    throw new ProposedPriceInvalidException("Please enter a positive number for proposed price");
                 }
             } catch (NumberFormatException e) {
-                throw new ProposedPriceInvalidException("Please enter valid input for Proposed price");
+                throw new ProposedPriceInvalidException("Please enter a valid input for proposed price");
             }
             if (job_title.getText().isEmpty() || job_description.getText().isEmpty() || proposed_price.getText().isEmpty()) {
                 alertBox.setAlertType(Alert.AlertType.ERROR);
@@ -92,7 +92,7 @@ public class NewJobController {
                 Job newJob = new Job(new_id, job_title.getText(), job_description.getText(), Double.parseDouble(proposed_price.getText()), logged_in_user, fileName);
                 unilink.getPostCollection().add(newJob);
                 alertBox.setAlertType(Alert.AlertType.INFORMATION);
-                alertBox.setContentText("New Job Created! ");
+                alertBox.setContentText("New job created! ");
                 alertBox.show();
                 returnToMainMenu();
             }

@@ -75,18 +75,18 @@ public class NewSaleController {
             try {
                 double num = Double.parseDouble(asking_price.getText());
                 if (num <= 0) {
-                    throw new AskingPriceInvalidException("Please enter positive number for Asking price");
+                    throw new AskingPriceInvalidException("Please enter a positive number for asking price");
                 }
             } catch (NumberFormatException e) {
-                throw new AskingPriceInvalidException("Please enter valid input for Asking price");
+                throw new AskingPriceInvalidException("Please enter a valid input for asking price");
             }
             try {
                 double num2 = Double.parseDouble(minimum_raise.getText());
                 if (num2 <= 0) {
-                    throw new MinimumRaiseInvalidException("Please enter positive number for Minimum raise");
+                    throw new MinimumRaiseInvalidException("Please enter a positive number for minimum raise");
                 }
             } catch (NumberFormatException e) {
-                throw new MinimumRaiseInvalidException("Please enter valid input for Minimum raise");
+                throw new MinimumRaiseInvalidException("Please enter a valid input for minimum raise");
             }
 
             if (sale_title.getText().isEmpty() || sale_description.getText().isEmpty() || minimum_raise.getText().isEmpty() || asking_price.getText().isEmpty()) {
@@ -105,7 +105,7 @@ public class NewSaleController {
                 Sale newSale = new Sale(new_id, sale_title.getText(), sale_description.getText(), Double.parseDouble(asking_price.getText()), Double.parseDouble(minimum_raise.getText()), logged_in_user, fileName);
                 unilink.getPostCollection().add(newSale);
                 alertBox.setAlertType(Alert.AlertType.INFORMATION);
-                alertBox.setContentText("New Sale Created! ");
+                alertBox.setContentText("New sale created! ");
                 alertBox.show();
                 returnToMainMenu();
             }

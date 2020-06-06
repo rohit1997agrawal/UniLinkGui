@@ -47,7 +47,7 @@ public class LoginScreenController {
             //To check if username starts with "s" followed by atleast one integer from [0-9]
             //Regex used to validate that username starts with "S" and has atleast one integer
             else if (!txtUserName.getText().matches("^(?:S)[0-9]+$")) {
-                throw new UsernameInvalidException("Please enter Valid username! \n Username should start with S followed by at least one integer");
+                throw new UsernameInvalidException("Please enter valid username! \n Username should start with S followed by at least one number");
             }
             //To load the Main menu , once Id is entered
             else {

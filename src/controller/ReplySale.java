@@ -50,10 +50,10 @@ public class ReplySale {
             try {
                 number = Double.parseDouble(sale_offer.getText());
             } catch (NumberFormatException e) {
-                throw new SaleOfferInvalidException("Please enter valid input for Sale offer");
+                throw new SaleOfferInvalidException("Please enter a valid input for offer");
             }
             if (number <= 0) {
-                throw new SaleOfferInvalidException("Please enter positive for Sale offer");
+                throw new SaleOfferInvalidException("Please enter a positive number for offer");
             } else if (number > objPost.getHighest_offer()) {
                 if (number >= (objPost.getHighest_offer() + objPost.getMinimum_raise())) {
                     Reply reply = new Reply(objPost.getId(), number, logged_in_user);
@@ -73,10 +73,10 @@ public class ReplySale {
                     return;
 
                 } else {
-                    throw new SaleOfferInvalidException("Your offer not greater than current highest offer by the set minimum Raise!");
+                    throw new SaleOfferInvalidException("Your offer is not greater than the current highest offer \n by the set minimum raise!");
                 }
             } else {
-                throw new SaleOfferInvalidException("Offer lower than current highest offer!");
+                throw new SaleOfferInvalidException("Offer is lower than current highest offer");
             }
         } catch (SaleOfferInvalidException ex) {
             alertBox.setAlertType(Alert.AlertType.ERROR);

@@ -28,7 +28,7 @@
                   <Insets left="40.0" />
                </HBox.margin>
                <font>
-                  <Font size="16.0" />
+                  <Font name="System Bold" size="16.0" />
                </font>
             </Label>
          </children>
@@ -140,7 +140,7 @@
                                     <Insets left="5.0" />
                                  </HBox.margin>
                               </Label>
-                              <TextField fx:id="post_info_1" prefHeight="40.0" prefWidth="67.0">
+                              <TextField fx:id="post_info_1" prefHeight="40.0" prefWidth="79.0">
                                  <HBox.margin>
                                     <Insets top="15.0" />
                                  </HBox.margin>

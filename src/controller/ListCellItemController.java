@@ -68,7 +68,7 @@ public class ListCellItemController {
         this.unilink = unilink;
         this.primaryStage = primaryStage;
         this.logged_in_user = logged_in_user;
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/NewListCellIten.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/ListCellItem.fxml"));
         fxmlLoader.setController(this);
         try {
             fxmlLoader.load();
@@ -186,7 +186,7 @@ public class ListCellItemController {
         for (Reply iterator : object.getReplyList()) {
             {
                 if (iterator.getResponder_id().equals(logged_in_user)) {
-                    alertBox.setContentText("User already part of the Event!");
+                    alertBox.setContentText("You have already joined this event");
                     alertBox.show();
                     return;
                 }
@@ -195,7 +195,7 @@ public class ListCellItemController {
         alertBox.setAlertType(Alert.AlertType.INFORMATION);
         Reply reply = new Reply(object.getId(), 1, logged_in_user);
         object.handleReply(reply);
-        alertBox.setContentText("You have joined the event!");
+        alertBox.setContentText("You have joined this event");
         alertBox.show();
         refreshMainMenu();
     }

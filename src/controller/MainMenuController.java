@@ -50,7 +50,7 @@ public class MainMenuController {
         Parent root = loader.load();
         Stage newWindow = new Stage();
         newWindow.setTitle("Developer Information");
-        newWindow.setScene(new Scene(root, 582, 241));
+        newWindow.setScene(new Scene(root, 567, 241));
         newWindow.centerOnScreen();
         newWindow.show();
 

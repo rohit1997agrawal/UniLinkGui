@@ -72,10 +72,10 @@ public class NewEventController {
             try {
                 int num = Integer.parseInt(event_capacity.getText());
                 if (num <= 0) {
-                    throw new CapacityInvalidException("Please enter a positive number for Capacity!");
+                    throw new CapacityInvalidException("Please enter a positive number for capacity");
                 }
             } catch (NumberFormatException e) {
-                throw new CapacityInvalidException("Please enter a valid input for Capacity!");
+                throw new CapacityInvalidException("Please enter a valid input for capacity");
             }
             if (event_title.getText().isEmpty() || event_capacity.getText().isEmpty() || event_description.getText().isEmpty() || event_venue.getText().isEmpty() || event_date.getValue() == null) {
 
@@ -94,7 +94,7 @@ public class NewEventController {
                 Event newEvent = new Event(new_id, event_title.getText(), event_description.getText(), event_venue.getText(), event_date.getValue().toString(), Integer.parseInt(event_capacity.getText()), logged_in_user, fileName);
                 unilink.getPostCollection().add(newEvent);
                 alertBox.setAlertType(Alert.AlertType.INFORMATION);
-                alertBox.setContentText("New Event Created! ");
+                alertBox.setContentText("New event created! ");
                 alertBox.show();
                 returnToMainMenu();
             }

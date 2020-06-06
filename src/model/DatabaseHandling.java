@@ -33,7 +33,7 @@ public class DatabaseHandling {
         int result = 0;
         int result2 = 0;
         try {
-            con = getConnection("testDB");
+            con = getConnection("unilinkDB");
             stmt = con.createStatement();
 
             //Create table "Post" with "id" as primary key
@@ -66,7 +66,7 @@ public class DatabaseHandling {
         Statement stmt2 = null;
         int result = 0;
         try {
-            con = getConnection("testDB");
+            con = getConnection("unilinkDB");
             stmt = con.createStatement();
             stmt2 = con.createStatement();
             //  result = stmt.executeUpdate("INSERT INTO post (id,title,description,creator_id,status,image,event_venue,event_date,event_capacity,event_attendee_count) VALUES ('EVE008','First Event','Event description','ROH001','OPEN','rohit','rohits house','10/10/2020',10,0)");
@@ -90,7 +90,7 @@ public class DatabaseHandling {
         Statement stmt = null;
         ResultSet result = null;
         try {
-            con = getConnection("testDB");
+            con = getConnection("unilinkDB");
             stmt = con.createStatement();
             result = stmt.executeQuery("select * from post");  //Gets all posts from "post" table
             while (result.next()) {
@@ -143,7 +143,7 @@ public class DatabaseHandling {
         Connection con = null;
         try {
             int result;
-            con = getConnection("testDB");
+            con = getConnection("unilinkDB");
             Statement stmt = con.createStatement();
             result = stmt.executeUpdate("TRUNCATE TABLE reply");
             result = stmt.executeUpdate("TRUNCATE TABLE post");

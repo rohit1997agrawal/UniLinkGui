@@ -28,7 +28,7 @@
             <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
          </padding>
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="User Login">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Unilink Login">
                <font>
                   <Font name="Tahoma" size="20.0" />
                </font>
@@ -38,7 +38,7 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <TextField fx:id="txtUserName" promptText="Username" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="txtUserName" focusTraversable="false" promptText="S123" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <HBox alignment="BOTTOM_RIGHT" prefHeight="61.0" prefWidth="95.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <children>
                   <Button fx:id="loginButton" mnemonicParsing="false" onAction="#Login" text="Login" />

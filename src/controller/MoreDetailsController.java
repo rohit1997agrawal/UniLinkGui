@@ -80,7 +80,7 @@ public class MoreDetailsController {
     void closePost(ActionEvent event) {
         if (objPost.getStatus().equals("CLOSED")) {
             alertBox.setAlertType(Alert.AlertType.ERROR);
-            alertBox.setContentText("Post is closed! No action allowed");
+            alertBox.setContentText("Post is closed! No action is allowed");
             alertBox.show();
         } else {
             objPost.setStatus("CLOSED");
@@ -98,7 +98,7 @@ public class MoreDetailsController {
     @FXML
     void deletePost(ActionEvent event) {
 
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delet the post?", ButtonType.YES, ButtonType.NO);
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete this post?", ButtonType.YES, ButtonType.NO);
         alert.setTitle("Delete Post");
         Optional<ButtonType> result = alert.showAndWait();
 
@@ -112,7 +112,7 @@ public class MoreDetailsController {
                 {
                     iterator.remove();
                     alertBox.setAlertType(Alert.AlertType.INFORMATION);
-                    alertBox.setContentText("Post Deleted! ");
+                    alertBox.setContentText("Post deleted! ");
                     alertBox.show();
                     returnToMainMenu();
 
@@ -137,11 +137,11 @@ public class MoreDetailsController {
         alertBox.setAlertType(Alert.AlertType.ERROR);
         if (objPost.getStatus().equals("CLOSED")) {
 
-            alertBox.setContentText("Post is closed! No action allowed");
+            alertBox.setContentText("Post is closed! No action is allowed");
             alertBox.show();
         } else if (objPost.getReplyList().size() > 0) {
             alertBox.setAlertType(Alert.AlertType.ERROR);
-            alertBox.setContentText("You can not edit any details! People have responded");
+            alertBox.setContentText("You can not edit any details! People have already responded");
             alertBox.show();
         } else {
             if (objPost instanceof Event) {
@@ -164,11 +164,11 @@ public class MoreDetailsController {
         alertBox.setAlertType(Alert.AlertType.ERROR);
         if (objPost.getStatus().equals("CLOSED")) {
 
-            alertBox.setContentText("Post is closed! No action allowed");
+            alertBox.setContentText("Post is closed! No action is allowed");
             alertBox.show();
         } else if (objPost.getReplyList().size() > 0) {
 
-            alertBox.setContentText("You can not upload new image! People have responded");
+            alertBox.setContentText("You can not upload new image! People have already responded");
             alertBox.show();
         } else {
             final FileChooser fileChooser = new FileChooser();
@@ -366,12 +366,12 @@ public class MoreDetailsController {
         try {
             capacity = Integer.parseInt(post_info_3.getText());
             if (capacity <= 0) {
-                alertBox.setContentText("Please enter a positive number for Capacity!");
+                alertBox.setContentText("Please enter a positive number for capacity!");
                 alertBox.show();
                 return;
             }
         } catch (NumberFormatException e) {
-            alertBox.setContentText("Please enter a valid input for Capacity!");
+            alertBox.setContentText("Please enter a valid input for capacity!");
             alertBox.show();
             return;
         }
@@ -406,7 +406,7 @@ public class MoreDetailsController {
             objEvent.setImage_name(fileName);
             objEvent.setCapacity(capacity);
             alertBox.setAlertType(Alert.AlertType.INFORMATION);
-            alertBox.setContentText("Event Details updated!");
+            alertBox.setContentText("Event details updated!");
             alertBox.show();
             refreshCurrentView();
         }
@@ -440,12 +440,12 @@ public class MoreDetailsController {
             minimumRaise = Double.parseDouble(post_info_2.getText());
 
             if (askingPrice <= 0 || minimumRaise <= 0) {
-                alertBox.setContentText("Please enter positive number for Asking price/Minimum raise");
+                alertBox.setContentText("Please enter a positive number for asking price/minimum raise");
                 alertBox.show();
                 return;
             }
         } catch (NumberFormatException e) {
-            alertBox.setContentText("Please enter valid input for Asking price/Minimum raise");
+            alertBox.setContentText("Please enter valid a input for asking price/minimum raise");
             alertBox.show();
             return;
         }
@@ -474,7 +474,7 @@ public class MoreDetailsController {
             objSale.setAsking_price(askingPrice);
             objSale.setMinimum_raise(minimumRaise);
             objSale.setImage_name(fileName);
-            alertBox.setContentText("Sale details updated! ");
+            alertBox.setContentText("Sale details updated!");
             alertBox.show();
             refreshCurrentView();
         }
@@ -491,12 +491,12 @@ public class MoreDetailsController {
         try {
             proposedPrice = Double.parseDouble(post_info_1.getText());
             if (proposedPrice <= 0) {
-                alertBox.setContentText("Please enter a positive number for proposed price!");
+                alertBox.setContentText("Please enter a positive number for proposed price");
                 alertBox.show();
                 return;
             }
         } catch (NumberFormatException e) {
-            alertBox.setContentText("Please enter valid input for Proposed price");
+            alertBox.setContentText("Please enter a valid input for proposed price");
             alertBox.show();
             return;
         }

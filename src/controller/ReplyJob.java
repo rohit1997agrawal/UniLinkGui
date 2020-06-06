@@ -47,10 +47,10 @@ public class ReplyJob {
             try {
                 number = Double.parseDouble(job_offer.getText());
             } catch (NumberFormatException s) {
-                throw new JobOfferInvalidException("Please enter valid input for job offer");
+                throw new JobOfferInvalidException("Please enter a valid input for offer");
             }
             if (number <= 0) {
-                throw new JobOfferInvalidException("Please enter positive for job offer");
+                throw new JobOfferInvalidException("Please enter a positive number for offer");
             } else if (number == 0.1) {
                 Reply reply = new Reply(objPost.getId(), number, logged_in_user);
                 objPost.handleReply(reply);
@@ -67,7 +67,7 @@ public class ReplyJob {
                 alertBox.show();
                 returnToMainMenu();
             } else {
-                throw new JobOfferInvalidException("Offer higher than current lowest offer!");
+                throw new JobOfferInvalidException("Offer is higher than the current lowest offer");
             }
 
         } catch (JobOfferInvalidException ex) {
