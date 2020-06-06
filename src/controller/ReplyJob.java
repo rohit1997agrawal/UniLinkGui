@@ -90,8 +90,8 @@ public class ReplyJob {
         }
         MainMenuController controller = loader.getController();
         controller.initializeModelAndStage(logged_in_user, primaryStage, unilink);
-        primaryStage.setTitle("MainMenu");
-        primaryStage.setScene(new Scene(root, 950, 500));
+        primaryStage.setTitle("Main Menu");
+        primaryStage.setScene(new Scene(root, 1000, 500));
         primaryStage.centerOnScreen();
         primaryStage.show();
     }
@@ -107,7 +107,7 @@ public class ReplyJob {
         if (objPost.getLowest_offer() == 0) {
             lowest_offer.setText("No Offer");
         } else {
-            lowest_offer.setText(String.valueOf(objPost.getLowest_offer()));
+            lowest_offer.setText("$ "+String.valueOf(objPost.getLowest_offer()));
         }
     }
 

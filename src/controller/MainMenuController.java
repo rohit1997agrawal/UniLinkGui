@@ -285,8 +285,8 @@ public class MainMenuController {
         root = loader.load();
         MainMenuController controller = loader.getController();
         controller.initializeModelAndStage(logged_in_user.getText(), primaryStage, unilink);
-        primaryStage.setTitle("MainMenu");
-        primaryStage.setScene(new Scene(root, 950, 500));
+        primaryStage.setTitle("Main Menu");
+        primaryStage.setScene(new Scene(root, 1000, 500));
         primaryStage.centerOnScreen();
         primaryStage.show();
     }

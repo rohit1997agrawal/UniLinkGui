@@ -97,9 +97,9 @@ public class ReplySale {
         if (objPost.getHighest_offer() == 0) {
             highest_offer.setText("No Offer");
         } else {
-            highest_offer.setText(String.valueOf(objPost.getHighest_offer()));
+            highest_offer.setText("$ "+String.valueOf(objPost.getHighest_offer()));
         }
-        minimum_raise.setText(String.valueOf(objPost.getMinimum_raise()));
+        minimum_raise.setText("$ "+String.valueOf(objPost.getMinimum_raise()));
 
     }
 
@@ -115,8 +115,8 @@ public class ReplySale {
         }
         MainMenuController controller = loader.getController();
         controller.initializeModelAndStage(logged_in_user, primaryStage, unilink);
-        primaryStage.setTitle("MainMenu");
-        primaryStage.setScene(new Scene(root, 950, 500));
+        primaryStage.setTitle("Main Menu");
+        primaryStage.setScene(new Scene(root, 1000, 500));
         primaryStage.centerOnScreen();
         primaryStage.show();
     }

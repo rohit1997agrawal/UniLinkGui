@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="514.0" prefWidth="809.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MoreDetailsController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="514.0" prefWidth="890.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MoreDetailsController">
    <top>
       <HBox prefHeight="50.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
@@ -158,11 +158,11 @@
                                     <Insets left="5.0" />
                                  </HBox.margin>
                               </Label>
-                              <TextField fx:id="post_info_2" prefHeight="38.0" prefWidth="82.0">
+                              <TextArea fx:id="post_info_2" maxHeight="-Infinity" prefHeight="5.0" prefWidth="99.0">
                                  <HBox.margin>
                                     <Insets top="15.0" />
                                  </HBox.margin>
-                              </TextField>
+                              </TextArea>
                            </children>
                         </HBox>
                         <HBox prefHeight="80.0" prefWidth="98.0">
@@ -183,14 +183,14 @@
                   </VBox>
                   <VBox layoutX="380.0" layoutY="10.0" prefHeight="158.0" prefWidth="134.0">
                      <children>
-                        <HBox prefHeight="76.0" prefWidth="98.0">
+                        <HBox prefHeight="76.0" prefWidth="170.0">
                            <children>
-                              <Label fx:id="post_info_4_label" prefHeight="62.0" prefWidth="31.0" text="Post info 4" wrapText="true">
+                              <Label fx:id="post_info_4_label" prefHeight="62.0" prefWidth="53.0" text="Post info 4" wrapText="true">
                                  <HBox.margin>
                                     <Insets left="5.0" />
                                  </HBox.margin>
                               </Label>
-                              <TextField fx:id="post_info_4" prefHeight="38.0" prefWidth="91.0">
+                              <TextField fx:id="post_info_4" prefHeight="38.0" prefWidth="50.0">
                                  <HBox.margin>
                                     <Insets top="15.0" />
                                  </HBox.margin>
@@ -218,7 +218,7 @@
             <TableView fx:id="replyTable" prefHeight="216.0" prefWidth="332.0">
                <columns>
                   <TableColumn fx:id="responsder_id" editable="false" prefWidth="163.0" text="Responder Id" />
-                  <TableColumn fx:id="responser_response" editable="false" minWidth="9.0" prefWidth="153.0" text="Response" />
+                  <TableColumn fx:id="responser_response" editable="false" minWidth="9.0" prefWidth="168.0" text="Response" />
                </columns>
             </TableView>
          </content>

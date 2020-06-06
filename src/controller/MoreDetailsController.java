@@ -55,7 +55,7 @@ public class MoreDetailsController {
     @FXML
     private Label post_info_2_label;
     @FXML
-    private TextField post_info_2;
+    private TextArea post_info_2;
     @FXML
     private TextField post_info_3;
     @FXML
@@ -210,7 +210,7 @@ public class MoreDetailsController {
         MainMenuController controller = loader.getController();
         controller.initializeModelAndStage(logged_in_user, primaryStage, unilink);
         primaryStage.setTitle("MainMenu");
-        primaryStage.setScene(new Scene(root, 950, 500));
+        primaryStage.setScene(new Scene(root, 1000, 500));
         primaryStage.centerOnScreen();
         primaryStage.show();
     }
@@ -253,6 +253,8 @@ public class MoreDetailsController {
         post_creator_id.setText(object.getCreator_id());
         post_description.setText(object.getDescription());
         post_status.setText(object.getStatus());
+        post_description.setWrapText(true);
+        post_title.setWrapText(true);
         post_title.setText(object.getTitle());
         if (object instanceof Event) {
             setEventInfo(object);
@@ -277,6 +279,7 @@ public class MoreDetailsController {
         post_info_4_label.setText("Attendee Count");
         post_info_1.setText(objPost.getDate());
         post_info_2.setText(objPost.getVenue());
+        post_info_2.setWrapText(true);
         post_info_3.setText(String.valueOf(objPost.getCapacity()));
         post_info_4.setText(String.valueOf(objPost.getAttendee_count()));
 

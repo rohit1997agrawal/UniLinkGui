@@ -62,7 +62,7 @@ public class LoginScreenController {
                 controller.initializeModelAndStage(txtUserName.getText(), primaryStage, unilink);
 
                 primaryStage.setTitle("Main Menu");
-                primaryStage.setScene(new Scene(root, 950, 500));
+                primaryStage.setScene(new Scene(root, 1000, 500));
                 primaryStage.centerOnScreen();
                 primaryStage.show();
             }

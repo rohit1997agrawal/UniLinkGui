@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -25,25 +26,33 @@ public class ListCellItemController {
     @FXML
     private HBox hBox;
     @FXML
-    private Label post_id;
+    private TextArea post_id;
     @FXML
     private ImageView post_image;
     @FXML
-    private Label post_title;
+    private TextArea post_title;
     @FXML
-    private Label post_description;
+    private TextArea post_description;
     @FXML
-    private Label post_creator_id;
+    private TextArea post_creator_id;
     @FXML
-    private Label post_status;
+    private TextArea post_status;
     @FXML
-    private Label post_info_1;
+    private TextArea post_info_1;
     @FXML
-    private Label post_info_2;
+    private TextArea post_info_2;
     @FXML
-    private Label post_info_3;
+    private TextArea post_info_3;
     @FXML
-    private Label post_info_4;
+    private TextArea post_info_4;
+    @FXML
+    private Label post_info_1_label;
+    @FXML
+    private Label post_info_2_label;
+    @FXML
+    private Label post_info_3_label;
+    @FXML
+    private Label post_info_4_label;
     @FXML
     private Button reply_button;
     @FXML
@@ -59,7 +68,7 @@ public class ListCellItemController {
         this.unilink = unilink;
         this.primaryStage = primaryStage;
         this.logged_in_user = logged_in_user;
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/ListCellItem.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/NewListCellIten.fxml"));
         fxmlLoader.setController(this);
         try {
             fxmlLoader.load();
@@ -84,7 +93,7 @@ public class ListCellItemController {
             controller.initializeModelAndStage(logged_in_user, primaryStage, object, unilink);
 
             primaryStage.setTitle("More Details of Post");
-            primaryStage.setScene(new Scene(root, 809, 514));
+            primaryStage.setScene(new Scene(root, 890, 514));
             primaryStage.centerOnScreen();
             primaryStage.show();
 
@@ -231,7 +240,11 @@ public class ListCellItemController {
     public void setEventInfo(Post object) {
         Event objPost = (Event) object;
         post_info_1.setText(objPost.getDate());
+
         post_info_2.setText(objPost.getVenue());
+        post_info_1_label.setText("Date");
+        post_info_2_label.setText("Venue");
+        post_info_3_label.setText("Capacity");
         post_info_3.setText(String.valueOf(objPost.getCapacity()));
         post_info_4.setText(String.valueOf(objPost.getAttendee_count()));
         hBox.setStyle(
@@ -251,14 +264,18 @@ public class ListCellItemController {
         if (objPost.getHighest_offer() == 0) {
             post_info_1.setText("NO OFFER");
         } else {
-            post_info_1.setText(String.valueOf(objPost.getHighest_offer()));
+            post_info_1.setText("$ "+String.valueOf(objPost.getHighest_offer()));
         }
-        post_info_2.setText(String.valueOf(objPost.getMinimum_raise()));
+        post_info_2.setText("$ "+String.valueOf(objPost.getMinimum_raise()));
         hBox.setStyle(
                 "-fx-background-color: lightCyan"
         );
-        post_info_3.setStyle("-fx-border-width : 0");
-        post_info_4.setStyle("-fx-border-width : 0");
+        post_info_1_label.setText("Highest Offer");
+        post_info_2_label.setText("Minimum Raise");
+        post_info_3_label.setVisible(false);
+        post_info_4_label.setVisible(false);
+        post_info_3.setVisible(false);
+        post_info_4.setVisible(false);
 
     }
 
@@ -269,18 +286,22 @@ public class ListCellItemController {
     public void setJobInfo(Post object) {
         Job objPost = (Job) object;
 
-        post_info_1.setText(String.valueOf(objPost.getProposed_price()));
+        post_info_1.setText("$ "+String.valueOf(objPost.getProposed_price()));
         if (objPost.getLowest_offer() == 0) {
             post_info_2.setText("NO OFFER");
         } else {
-            post_info_2.setText(String.valueOf(objPost.getLowest_offer()));
+            post_info_2.setText("$ "+String.valueOf(objPost.getLowest_offer()));
         }
 
         hBox.setStyle(
                 "-fx-background-color: lightYellow"
         );
-        post_info_3.setStyle("-fx-border-width : 0");
-        post_info_4.setStyle("-fx-border-width : 0");
+        post_info_1_label.setText("Proposed Price");
+        post_info_2_label.setText("Lowest Offer");
+        post_info_3_label.setVisible(false);
+        post_info_4_label.setVisible(false);
+        post_info_3.setVisible(false);
+        post_info_4.setVisible(false);
 
     }
 
@@ -298,8 +319,8 @@ public class ListCellItemController {
 
         MainMenuController controller = loader.getController();
         controller.initializeModelAndStage(logged_in_user, primaryStage, unilink);
-        primaryStage.setTitle("MainMenu");
-        primaryStage.setScene(new Scene(root, 950, 500));
+        primaryStage.setTitle("Main Menu");
+        primaryStage.setScene(new Scene(root, 1000, 500));
         primaryStage.centerOnScreen();
         primaryStage.show();
     }
