@@ -167,7 +167,7 @@ public class DatabaseHandling {
                     job.setLowest_offer(Double.parseDouble((result.getString("job_lowest_offer"))));
                     postCollection.add(job);
                 } else if (currentId.startsWith("SAL")) {
-                    Sale sale = new Sale(currentId, result.getString("title"), result.getString("description"), result.getDouble("sale_asking_price"), result.getDouble("sale_asking_price"), result.getString("creator_id"), result.getString("image"));
+                    Sale sale = new Sale(currentId, result.getString("title"), result.getString("description"), result.getDouble("sale_asking_price"), result.getDouble("sale_minimum_raise"), result.getString("creator_id"), result.getString("image"));
                     while (replyResult.next()) {
                         Reply reply = new Reply(replyResult.getString("post_id"), replyResult.getDouble("value"), replyResult.getString("responder_id"));
                         sale.getReplyList().add(reply);
