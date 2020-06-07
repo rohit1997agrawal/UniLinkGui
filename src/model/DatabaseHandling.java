@@ -4,6 +4,7 @@ package model;
 //The syntax is supported by recent HSQLDB 2.3.X versions.
 
 import com.sun.xml.internal.bind.v2.TODO;
+import org.hsqldb.HsqlException;
 
 import java.sql.*;
 import java.util.HashSet;
@@ -34,23 +35,37 @@ public class DatabaseHandling {
         int result2 = 0;
         try {
             con = getConnection("unilinkDB");
-            stmt = con.createStatement();
 
-            //Create table "Post" with "id" as primary key
-            result = stmt.executeUpdate("CREATE TABLE IF NOT EXISTS post (" +
-                    "            id VARCHAR(10) NOT NULL, title VARCHAR(100) NOT NULL," +
-                    "            description VARCHAR(100) NOT NULL, creator_id VARCHAR(50) NOT NULL, status VARCHAR(10) NOT NULL , image VARCHAR(50), event_venue VARCHAR(100) , event_date VARCHAR(20) , " +
-                    "event_capacity INT , event_attendee_count INT , sale_asking_price FLOAT , sale_highest_offer FLOAT , sale_minimum_raise FLOAT , job_proposed_price FLOAT , " +
-                    "            job_lowest_offer FLOAT , PRIMARY KEY (id))");
-            System.out.println(result);
+            //To check if table exists or not
+            Statement st = con.createStatement();
+            ResultSet resultSet = st.executeQuery("SELECT * FROM INFORMATION_SCHEMA.SYSTEM_TABLES where TABLE_TYPE='TABLE'");
+            if(resultSet.next())
+            {
+                    //Ignore Table creating and inserting hardcoded data
+                System.out.println("Tables exist");
 
-            //Create table "Reply" with auto increment id , and "post id" as foreign key
-            result2 = stmt.executeUpdate("CREATE TABLE IF NOT EXISTS reply (" +
-                    "           id INTEGER IDENTITY PRIMARY KEY, post_id VARCHAR(10) NOT NULL, value FLOAT NOT NULL , " +
-                    "             responder_id VARCHAR(50) NOT NULL,  " +
-                    "           FOREIGN KEY (post_id) REFERENCES post(id) ) ");
-            con.commit();
-            System.out.println(result2);
+            }
+            else{
+                stmt = con.createStatement();
+
+                //Create table "Post" with "id" as primary key
+                result = stmt.executeUpdate("CREATE TABLE IF NOT EXISTS post (" +
+                        "            id VARCHAR(10) NOT NULL, title VARCHAR(100) NOT NULL," +
+                        "            description VARCHAR(100) NOT NULL, creator_id VARCHAR(50) NOT NULL, status VARCHAR(10) NOT NULL , image VARCHAR(50), event_venue VARCHAR(100) , event_date VARCHAR(20) , " +
+                        "event_capacity INT , event_attendee_count INT , sale_asking_price FLOAT , sale_highest_offer FLOAT , sale_minimum_raise FLOAT , job_proposed_price FLOAT , " +
+                        "            job_lowest_offer FLOAT , PRIMARY KEY (id))");
+             //   System.out.println(result);
+
+                //Create table "Reply" with auto increment id , and "post id" as foreign key
+                result2 = stmt.executeUpdate("CREATE TABLE IF NOT EXISTS reply (" +
+                        "           id INTEGER IDENTITY PRIMARY KEY, post_id VARCHAR(10) NOT NULL, value FLOAT NOT NULL , " +
+                        "             responder_id VARCHAR(50) NOT NULL,  " +
+                        "           FOREIGN KEY (post_id) REFERENCES post(id) ) ");
+                con.commit();
+
+                insertData();
+            }
+
         } catch (Exception e) {
             e.printStackTrace(System.out);
         }
@@ -58,24 +73,58 @@ public class DatabaseHandling {
     }
 
 
-    //TODO Function to insert data initially to hard code values (2 events , 2 jobs , 2 sales)
-    public void insertData() {
 
+    //Insert initial hardcoded data , only if table Post and Reply are created and does not exist already
+    public void insertData() {
         Connection con = null;
         Statement stmt = null;
-        Statement stmt2 = null;
         int result = 0;
         try {
             con = getConnection("unilinkDB");
             stmt = con.createStatement();
-            stmt2 = con.createStatement();
-            //  result = stmt.executeUpdate("INSERT INTO post (id,title,description,creator_id,status,image,event_venue,event_date,event_capacity,event_attendee_count) VALUES ('EVE008','First Event','Event description','ROH001','OPEN','rohit','rohits house','10/10/2020',10,0)");
-            //     result = stmt2.executeUpdate("INSERT INTO post (id,title,description,creator_id,status,image,event_venue,event_date,event_capacity,event_attendee_count) VALUES ('EVE009','Second Event','Event description','ROH002','OPEN','rohit2','rohits house2','10/10/2021',8,0)");
+            con.setAutoCommit(false);
+            String insert1 = "INSERT  INTO post (id,title,description,creator_id,status,image,event_venue,event_date,event_capacity,event_attendee_count) VALUES ('EVE002','Dinner','Vegan dinner this weekend.','S345','OPEN','Dinner.jpg','Carleton','2020-06-20',5,2)";
+            String insert2 = "INSERT  INTO post (id,title,description,creator_id,status,image,sale_asking_price,sale_highest_offer,sale_minimum_raise) VALUES ('SAL002','Designer heels','Steve Madden, size 9 US, new and in good condition.','S345','OPEN','heels.jpg',60.0,44.0,10.0)";
+            String insert3 = "INSERT  INTO post (id,title,description,creator_id,status,image,sale_asking_price,sale_highest_offer,sale_minimum_raise) VALUES ('SAL001','Casio watch ','Great offer! Casio men''s watch, unused.','S123','OPEN','watch.jpg',109.0,90.0,5.0)";
+            String insert4 = "INSERT  INTO post (id,title,description,creator_id,status,image,job_proposed_price,job_lowest_offer) VALUES ('JOB001','Cybersecurity graduate program','Entry level position in CBD.','S123','OPEN','Security.jpg',23000.0,19000.0)";
+            String insert5 = "INSERT  INTO post (id,title,description,creator_id,status,image,job_proposed_price,job_lowest_offer) VALUES ('JOB002','Front-end developer','Entry level post based in Richmond','S345','OPEN','IT.jpg',23000.0,20000.0)";
+            String insert6 = "INSERT  INTO post (id,title,description,creator_id,status,image,event_venue,event_date,event_capacity,event_attendee_count) VALUES ('EVE001','Roh''s birthday','Please come for Roh''s 23rd birthday ','S123','OPEN','Birthday_Cake.jpg','North Melbourne','2020-06-14',10,2)";
+            String insert7 = "INSERT  INTO reply (post_id,value,responder_id) VALUES ('EVE002',1.0,'S678')";
+            String insert8 = "INSERT  INTO reply (post_id,value,responder_id) VALUES ('EVE002',1.0,'S890')";
+            String insert9 = "INSERT  INTO reply (post_id,value,responder_id) VALUES ('SAL002',34.0,'S678')";
+            String insert10 = "INSERT  INTO reply (post_id,value,responder_id) VALUES ('SAL002',44.0,'S890')";
+            String insert11 = "INSERT  INTO reply (post_id,value,responder_id) VALUES ('SAL001',80.0,'S678')";
+            String insert12 = "INSERT  INTO reply (post_id,value,responder_id) VALUES ('SAL001',90.0,'S890')";
+            String insert13 = "INSERT  INTO reply (post_id,value,responder_id) VALUES ('JOB001',20000.0,'S678')";
+            String insert14 = "INSERT  INTO reply (post_id,value,responder_id) VALUES ('JOB001',19000.0,'S890')";
+            String insert15 = "INSERT  INTO reply (post_id,value,responder_id) VALUES ('JOB002',21000.0,'S678')";
+            String insert16 = "INSERT  INTO reply (post_id,value,responder_id) VALUES ('JOB002',20000.0,'S890')";
+            String insert17 = "INSERT  INTO reply (post_id,value,responder_id) VALUES ('EVE001',1.0,'S678')";
+            String insert18 = "INSERT  INTO reply (post_id,value,responder_id) VALUES ('EVE001',1.0,'S890')";
+            stmt.addBatch(insert1);
+            stmt.addBatch(insert2);
+            stmt.addBatch(insert3);
+            stmt.addBatch(insert4);
+            stmt.addBatch(insert5);
+            stmt.addBatch(insert6);
+            stmt.addBatch(insert7);
+            stmt.addBatch(insert8);
+            stmt.addBatch(insert9);
+            stmt.addBatch(insert10);
+            stmt.addBatch(insert11);
+            stmt.addBatch(insert12);
+            stmt.addBatch(insert13);
+            stmt.addBatch(insert14);
+            stmt.addBatch(insert15);
+            stmt.addBatch(insert16);
+            stmt.addBatch(insert17);
+            stmt.addBatch(insert18);
+            //Executing the batch
+            stmt.executeBatch();
             con.commit();
-        } catch (Exception e) {
+        } catch (HsqlException | SQLException | ClassNotFoundException e ) {
             e.printStackTrace(System.out);
         }
-
     }
 
 
@@ -158,7 +207,7 @@ public class DatabaseHandling {
                 } else if (object instanceof Job) {
                     insertQuery = "INSERT INTO post (id,title,description,creator_id,status,image,job_proposed_price,job_lowest_offer) VALUES ('" + object.getId() + "','" + object.getTitle().replace("'","''") + "','" + object.getDescription().replace("'","''") + "','" + object.getCreator_id() + "','" + object.getStatus() + "','" + object.getImage_name() + "'," + ((Job) object).getProposed_price() + "," + ((Job) object).getLowest_offer() + ")";
                 }
-                System.out.println(insertQuery);
+               // System.out.println(insertQuery);
                 result = stmt.executeUpdate(insertQuery);
                 con.commit();
                 for (Reply reply : object.getReplyList()) {
@@ -166,7 +215,7 @@ public class DatabaseHandling {
                     insertQueryReply = "INSERT INTO reply (post_id,value,responder_id) VALUES ('" + reply.getPost_id() + "'," + reply.getValue() + ",'" + reply.getResponder_id() + "')";
                     stmt = con.createStatement();
                     result = stmt.executeUpdate(insertQueryReply);
-                    System.out.println(insertQueryReply);
+                 //   System.out.println(insertQueryReply);
                     con.commit();
                 }
             }

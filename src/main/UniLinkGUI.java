@@ -26,8 +26,10 @@ public class UniLinkGUI extends Application {
         UniLink unilink = new UniLink();
         DatabaseHandling obj = new DatabaseHandling();
 
-        //Create database and tables "Post" and "Reply" if it does not exist
+
+        //Create database and tables "Post" and "Reply" if it does not exist , and insert initial data
         obj.createTable();
+
 
         //Function to read database and store data in Post Collection(defined in UniLink.java)
         obj.readDatabase(unilink);
